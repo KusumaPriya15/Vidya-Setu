@@ -10,6 +10,7 @@ import RegisterPage from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import StudentDashboard from './pages/student/StudentDashboard';
 import StudentMyCourses from './pages/student/StudentMyCourses';
+import StudentCourseMaterials from './pages/student/StudentCourseMaterials';
 import StudentQuizList from './pages/student/StudentQuizList';
 import StudentQuizView from './pages/student/StudentQuizView';
 import StudentProgress from './pages/student/StudentProgress';
@@ -97,6 +98,9 @@ const AppRoutes: React.FC = () => {
             {/* Student Routes */}
             <Route path="/student/my-courses" element={
                 <ProtectedRoute roles={['student']}><Layout><StudentMyCourses /></Layout></ProtectedRoute>
+            } />
+            <Route path="/student/my-courses/:courseId" element={
+                <ProtectedRoute roles={['student']}><Layout><StudentCourseMaterials /></Layout></ProtectedRoute>
             } />
             <Route path="/student/quizzes" element={
                 <ProtectedRoute roles={['student']}><Layout><StudentQuizList /></Layout></ProtectedRoute>

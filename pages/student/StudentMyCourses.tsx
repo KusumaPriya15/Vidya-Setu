@@ -1,84 +1,66 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as api from '../../lib/api';
 import { useAuth } from '../../lib/auth';
-import { Course, CourseMaterial } from '../../types';
-import { Button } from '../../components/ui/Button';
+import { Course } from '../../types';
 import { Input } from '../../components/ui/Input';
 import { cn } from '../../lib/utils';
 import {
     SearchIcon,
     SearchXIcon,
     BookOpen,
-    LinkIcon,
-    FileTextIcon,
-    VideoIcon,
-    CheckCircle,
-    PlayIcon,
     ArrowRightIcon,
-    GraduationCap,
-    X,
 } from '../../components/ui/Icons';
 
 interface CourseWithProgress extends Course {
     progress: number;
 }
 
-// Deterministic gradient per course based on title char code
+// Softer gradients for a premium feel
 const COURSE_GRADIENTS = [
-    'from-violet-500 to-indigo-600',
-    'from-blue-500 to-cyan-600',
-    'from-emerald-500 to-teal-600',
-    'from-orange-500 to-rose-600',
-    'from-pink-500 to-purple-600',
-    'from-amber-500 to-orange-600',
+    'from-indigo-500/90 to-purple-600/90',
+    'from-blue-500/90 to-cyan-600/90',
+    'from-emerald-500/90 to-teal-600/90',
+    'from-rose-500/90 to-orange-600/90',
+    'from-fuchsia-500/90 to-pink-600/90',
+    'from-violet-500/90 to-indigo-600/90',
 ];
 
 const getCourseGradient = (title: string) =>
     COURSE_GRADIENTS[title.charCodeAt(0) % COURSE_GRADIENTS.length];
 
-const getMaterialIcon = (type: CourseMaterial['type']) => {
-    switch (type) {
-        case 'link':  return <LinkIcon    className="w-4 h-4 text-blue-400 shrink-0" />;
-        case 'pdf':   return <FileTextIcon className="w-4 h-4 text-red-400 shrink-0" />;
-        case 'video': return <VideoIcon   className="w-4 h-4 text-purple-400 shrink-0" />;
-        default:      return <LinkIcon    className="w-4 h-4 text-slate-400 shrink-0" />;
-    }
-};
-
 // Circular progress ring
-const ProgressRing: React.FC<{ pct: number; size?: number }> = ({ pct, size = 52 }) => {
-    const r = (size - 8) / 2;
+const ProgressRing: React.FC<{ pct: number; size?: number }> = ({ pct, size = 48 }) => {
+    const strokeWidth = 4;
+    const r = (size - strokeWidth * 2) / 2;
     const circ = 2 * Math.PI * r;
     const offset = circ - (pct / 100) * circ;
     return (
-        <svg width={size} height={size} className="-rotate-90">
-            <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="4" />
-            <circle
-                cx={size / 2} cy={size / 2} r={r} fill="none"
-                stroke="white" strokeWidth="4"
-                strokeDasharray={circ} strokeDashoffset={offset}
-                strokeLinecap="round"
-                style={{ transition: 'stroke-dashoffset 0.6s ease' }}
-            />
-            <text
-                x="50%" y="50%"
-                dominantBaseline="middle" textAnchor="middle"
-                style={{ fill: 'white', fontSize: size * 0.22, fontWeight: 700 }}
-            >
+        <div className="relative flex items-center justify-center bg-white/20 dark:bg-black/20 backdrop-blur-md rounded-full shadow-sm" style={{ width: size, height: size }}>
+            <svg width={size} height={size} className="-rotate-90 absolute">
+                <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth={strokeWidth} />
+                <circle
+                    cx={size / 2} cy={size / 2} r={r} fill="none"
+                    stroke="white" strokeWidth={strokeWidth}
+                    strokeDasharray={circ} strokeDashoffset={offset}
+                    strokeLinecap="round"
+                    style={{ transition: 'stroke-dashoffset 1s ease-out' }}
+                />
+            </svg>
+            <span className="text-white font-bold text-xs" style={{ fontSize: size * 0.25 }}>
                 {pct}%
-            </text>
-        </svg>
+            </span>
+        </div>
     );
 };
 
 const StudentMyCourses: React.FC = () => {
     const { user } = useAuth();
+    const navigate = useNavigate();
     const [courses, setCourses] = useState<CourseWithProgress[]>([]);
     const [filteredCourses, setFilteredCourses] = useState<CourseWithProgress[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [viewedMaterials, setViewedMaterials] = useState<Set<string>>(new Set());
     const [isLoading, setIsLoading] = useState(true);
-    const [expandedCourseId, setExpandedCourseId] = useState<string | null>(null);
 
     const calculateProgress = (course: Course, viewed: Set<string>): number => {
         if (!course.materials || course.materials.length === 0) return 0;
@@ -96,7 +78,6 @@ const StudentMyCourses: React.FC = () => {
             ]);
 
             const viewedSet = new Set(viewedMaterialIds as string[]);
-            setViewedMaterials(viewedSet);
 
             const coursesWithProgress = assignedCourses.map(course => ({
                 ...course,
@@ -123,41 +104,31 @@ const StudentMyCourses: React.FC = () => {
         setFilteredCourses(filtered);
     }, [searchTerm, courses]);
 
-    const handleMaterialClick = async (materialId: string) => {
-        if (!user) return;
-        await api.markMaterialAsViewed(user.id, materialId);
-        setViewedMaterials(prev => {
-            const newSet = new Set<string>(prev);
-            newSet.add(materialId);
-            setCourses(currentCourses => currentCourses.map(course => ({
-                ...course,
-                progress: calculateProgress(course, newSet)
-            })));
-            return newSet;
-        });
-    };
-
     if (isLoading) {
-        return <div className="text-center p-8" style={{ color: 'var(--text-main)' }}>Loading your courses...</div>;
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-4">
+                <div className="w-12 h-12 rounded-full border-4 border-indigo-100 border-t-indigo-600 animate-spin"></div>
+                <p className="text-slate-500 dark:text-slate-400 font-medium tracking-wide animate-pulse">Loading your courses...</p>
+            </div>
+        );
     }
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-8 pb-12 animate-in fade-in duration-500">
             {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div>
-                    <h1 className="text-3xl font-bold tracking-tight leading-tight" style={{ color: 'var(--text-main)' }}>My Courses</h1>
-                    <p className="mt-1 leading-tight" style={{ color: 'var(--text-secondary)' }}>Explore your assigned courses and track your progress.</p>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-white dark:bg-slate-900 p-8 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800">
+                <div className="max-w-xl">
+                    <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-2">My Courses</h1>
+                    <p className="text-slate-500 dark:text-slate-400 text-lg">Continue your learning journey and track your progress.</p>
                 </div>
-                <div className="w-full md:w-auto">
+                <div className="w-full md:w-72">
                     <Input
                         type="text"
-                        placeholder="Search courses or instructors..."
+                        placeholder="Search courses..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full md:w-64"
-                        icon={<SearchIcon className="w-5 h-5" style={{ color: 'var(--text-muted)' }} />}
-                        aria-label="Search my courses"
+                        className="w-full rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700"
+                        icon={<SearchIcon className="w-5 h-5 text-slate-400" />}
                     />
                 </div>
             </div>
@@ -165,146 +136,92 @@ const StudentMyCourses: React.FC = () => {
             {/* Courses Grid */}
             {courses.length > 0 ? (
                 filteredCourses.length > 0 ? (
-                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                         {filteredCourses.map(course => (
-                            <div key={course.id} className="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
-                                {/* Gradient Banner */}
-                                <div className={cn('bg-gradient-to-br', getCourseGradient(course.title), 'h-32 relative overflow-hidden')}>
-                                    <div className="absolute inset-0 opacity-20">
+                            <div 
+                                key={course.id} 
+                                onClick={() => navigate(`/student/my-courses/${course.id}`)}
+                                className="group flex flex-col relative rounded-[2rem] overflow-hidden bg-white dark:bg-slate-900 border border-slate-100/80 dark:border-slate-800/80 shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer hover:-translate-y-1.5"
+                            >
+                                {/* Banner */}
+                                <div className={cn('h-36 w-full relative overflow-hidden bg-gradient-to-br', getCourseGradient(course.title))}>
+                                    {/* Abstract Pattern Overlay */}
+                                    <div className="absolute inset-0 opacity-[0.15] mix-blend-overlay">
                                         <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                                             <defs>
-                                                <pattern id="pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                                                    <circle cx="10" cy="10" r="2" fill="white" opacity="0.3" />
+                                                <pattern id={`pattern-${course.id}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                                                    <circle cx="2" cy="2" r="2" fill="currentColor" />
                                                 </pattern>
                                             </defs>
-                                            <rect width="100" height="100" fill="url(#pattern)" />
+                                            <rect width="100" height="100" fill={`url(#pattern-${course.id})`} />
                                         </svg>
                                     </div>
 
                                     {/* Progress Ring */}
-                                    <div className="absolute top-4 right-4">
-                                        <ProgressRing pct={course.progress} size={56} />
+                                    <div className="absolute top-4 right-4 z-10">
+                                        <ProgressRing pct={course.progress} size={52} />
                                     </div>
-
-                                    {/* Course Icon */}
-                                    <div className="absolute bottom-4 left-4 p-3 rounded-lg bg-white/20 backdrop-blur-sm">
-                                        <GraduationCap className="w-6 h-6 text-white" />
+                                    
+                                    {/* Materials Count Pill */}
+                                    <div className="absolute bottom-4 left-4 z-10 bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-xl text-white text-xs font-semibold shadow-sm border border-white/10">
+                                        {course.materials.length} Materials
                                     </div>
                                 </div>
 
                                 {/* Content */}
-                                <div className="p-5 bg-white dark:bg-slate-900" style={{ backgroundColor: 'var(--card-bg)' }}>
-                                    <div className="space-y-3">
-                                        {/* Title & Instructor */}
-                                        <div>
-                                            <h3 className="text-lg font-bold leading-tight line-clamp-2" style={{ color: 'var(--text-main)' }}>
-                                                {course.title}
-                                            </h3>
-                                            <p className="text-sm mt-1 leading-tight" style={{ color: 'var(--text-secondary)' }}>
-                                                by {course.instructorName}
-                                            </p>
+                                <div className="p-6 flex flex-col flex-1">
+                                    <div className="mb-2">
+                                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
+                                            {course.difficulty}
+                                        </span>
+                                    </div>
+                                    
+                                    <h3 className="text-xl font-bold leading-tight text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">
+                                        {course.title}
+                                    </h3>
+                                    
+                                    <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 mb-6 leading-relaxed flex-1">
+                                        {course.description}
+                                    </p>
+
+                                    {/* Footer */}
+                                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-100 dark:border-slate-800/80">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 font-bold text-xs border border-slate-200 dark:border-slate-700">
+                                                {course.instructorName.charAt(0).toUpperCase()}
+                                            </div>
+                                            <span className="text-xs font-medium text-slate-600 dark:text-slate-400 max-w-[100px] truncate">
+                                                {course.instructorName}
+                                            </span>
                                         </div>
 
-                                        {/* Description */}
-                                        <p className="text-sm line-clamp-2 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                                            {course.description}
-                                        </p>
-
-                                        {/* Meta Info */}
-                                        <div className="flex items-center gap-2 flex-wrap pt-2">
-                                            <span className="text-xs px-2.5 py-1 rounded-full font-medium" style={{ backgroundColor: 'var(--kpi-icon-chip)', color: 'var(--text-secondary)' }}>
-                                                {course.difficulty}
-                                            </span>
-                                            <span className="text-xs px-2.5 py-1 rounded-full font-medium" style={{ backgroundColor: 'var(--kpi-icon-chip)', color: 'var(--text-secondary)' }}>
-                                                {course.materials.length} Materials
-                                            </span>
-                                        </div>
-
-                                        {/* Action Buttons */}
-                                        <div className="flex gap-2 pt-3">
-                                            <Button
-                                                onClick={() => setExpandedCourseId(expandedCourseId === course.id ? null : course.id)}
-                                                className="flex-1 flex items-center justify-center gap-2 h-9"
-                                                variant={expandedCourseId === course.id ? 'default' : 'outline'}
-                                            >
-                                                {expandedCourseId === course.id ? (
-                                                    <>Materials <X className="w-4 h-4" /></>
-                                                ) : (
-                                                    <>Materials <ArrowRightIcon className="w-4 h-4" /></>
-                                                )}
-                                            </Button>
-                                            {course.progress > 0 && (
-                                                <Button className="flex-1 flex items-center justify-center gap-2 h-9">
-                                                    Continue <ArrowRightIcon className="w-4 h-4" />
-                                                </Button>
-                                            )}
-                                            {course.progress === 0 && (
-                                                <Button className="flex-1 flex items-center justify-center gap-2 h-9">
-                                                    Start <PlayIcon className="w-4 h-4" />
-                                                </Button>
-                                            )}
+                                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white dark:group-hover:bg-indigo-500 transition-all duration-300 shadow-sm">
+                                            <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* Materials Drawer */}
-                                {expandedCourseId === course.id && (
-                                    <div className="border-t" style={{ borderColor: 'var(--border-default)', backgroundColor: 'var(--sidebar-bg)' }}>
-                                        <div className="p-5 space-y-3 max-h-64 overflow-y-auto">
-                                            {course.materials.length > 0 ? (
-                                                course.materials.map(material => (
-                                                    <a
-                                                        key={material.id}
-                                                        href={material.url}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        onClick={() => handleMaterialClick(material.id)}
-                                                        className="flex items-center gap-3 p-3 rounded-lg transition-all hover:scale-105"
-                                                        style={{
-                                                            backgroundColor: 'var(--card-bg)',
-                                                            border: '1px solid var(--border-default)'
-                                                        }}
-                                                    >
-                                                        {getMaterialIcon(material.type)}
-                                                        <div className="flex-1 min-w-0">
-                                                            <p className="text-sm font-medium truncate leading-tight" style={{ color: 'var(--text-main)' }}>
-                                                                {material.title}
-                                                            </p>
-                                                            <p className="text-xs leading-tight" style={{ color: 'var(--text-secondary)' }}>
-                                                                {material.type.toUpperCase()}
-                                                            </p>
-                                                        </div>
-                                                        {viewedMaterials.has(material.id) && (
-                                                            <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                                                        )}
-                                                    </a>
-                                                ))
-                                            ) : (
-                                                <p className="text-sm text-center py-4" style={{ color: 'var(--text-secondary)' }}>
-                                                    No materials available.
-                                                </p>
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <div className="text-center py-16 rounded-lg" style={{ backgroundColor: 'var(--kpi-icon-chip)' }}>
-                        <SearchXIcon className="w-16 h-16 mx-auto mb-4 opacity-30" style={{ color: 'var(--text-muted)' }} />
-                        <p className="text-lg font-semibold leading-tight" style={{ color: 'var(--text-main)' }}>No Courses Found</p>
-                        <p className="text-sm mt-2 leading-tight" style={{ color: 'var(--text-secondary)' }}>
-                            Your search for "{searchTerm}" did not match any courses.
+                    <div className="text-center py-20 px-4 rounded-[2rem] bg-white dark:bg-slate-900 border border-dashed border-slate-200 dark:border-slate-800">
+                        <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center">
+                            <SearchXIcon className="w-10 h-10 text-slate-400" />
+                        </div>
+                        <p className="text-xl font-bold text-slate-900 dark:text-white mb-2">No Matches Found</p>
+                        <p className="text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
+                            We couldn't find any courses matching "{searchTerm}". Try adjusting your search.
                         </p>
                     </div>
                 )
             ) : (
-                <div className="text-center py-16 rounded-lg" style={{ backgroundColor: 'var(--kpi-icon-chip)' }}>
-                    <BookOpen className="w-16 h-16 mx-auto mb-4 opacity-30" style={{ color: 'var(--primary)' }} />
-                    <p className="text-lg font-semibold leading-tight" style={{ color: 'var(--text-main)' }}>No Courses Assigned</p>
-                    <p className="text-sm mt-2 leading-tight" style={{ color: 'var(--text-secondary)' }}>
-                        Your instructor hasn't assigned any courses to you yet.
+                <div className="text-center py-20 px-4 rounded-[2rem] bg-indigo-50/50 dark:bg-indigo-900/10 border border-dashed border-indigo-200 dark:border-indigo-800/50">
+                    <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center">
+                        <BookOpen className="w-10 h-10 text-indigo-500" />
+                    </div>
+                    <p className="text-xl font-bold text-slate-900 dark:text-white mb-2">Your Dashboard is Empty</p>
+                    <p className="text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
+                        You haven't been assigned any courses yet. Check back later when your instructor uploads new content.
                     </p>
                 </div>
             )}
