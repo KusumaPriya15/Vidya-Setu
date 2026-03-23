@@ -41,6 +41,7 @@ import MentorGenerateQuiz from './pages/mentor/MentorGenerateQuiz';
 import MentorEditQuiz from './pages/mentor/MentorEditQuiz';
 import MentorManualQuiz from './pages/mentor/MentorManualQuiz';
 import AdminStudentProgress from './pages/admin/AdminStudentProgress';
+import Landing from './pages/Landing';
 
 const App: React.FC = () => {
     return (
@@ -62,9 +63,9 @@ const AppRoutes: React.FC = () => {
 
     return (
         <Routes>
+            <Route path="/" element={<Landing />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/" element={<LoginPage />} />
             <Route
                 path="/dashboard"
                 element={
