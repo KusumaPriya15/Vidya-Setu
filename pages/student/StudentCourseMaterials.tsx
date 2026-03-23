@@ -193,11 +193,11 @@ const StudentCourseMaterials: React.FC = () => {
             {/* Materials List */}
             <div className="space-y-6">
                 <div>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white inline-flex items-center gap-2">
+                    <h2 className="text-2xl font-bold text-slate-900 inline-flex items-center gap-2">
                         <BookOpen className="w-6 h-6 text-indigo-500" />
                         Course Content
                     </h2>
-                    <p className="text-slate-500 dark:text-slate-400 mt-1">Review the materials to complete this course.</p>
+                    <p className="text-slate-600 mt-1">Review the materials to complete this course.</p>
                 </div>
                 
                 {course.materials.length > 0 ? (
