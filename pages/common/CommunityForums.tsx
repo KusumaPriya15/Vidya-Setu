@@ -77,11 +77,11 @@ const CommunityForums: React.FC = () => {
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Community Forums</h1>
-                    <p style={{ color: 'var(--text-secondary)' }}>Join the discussion, ask questions, and share knowledge.</p>
+                    <h1 className="text-3xl font-bold tracking-tight leading-tight" style={{ color: 'var(--text-main)' }}>Community Forums</h1>
+                    <p className="mt-1 leading-tight" style={{ color: 'var(--text-secondary)' }}>Join the discussion, ask questions, and share knowledge.</p>
                 </div>
-                <Button onClick={() => setIsCreateModalOpen(true)}>
-                    <PlusIcon className="w-4 h-4 mr-2" /> Start Discussion
+                <Button onClick={() => setIsCreateModalOpen(true)} className="flex items-center gap-2 flex-shrink-0">
+                    <PlusIcon className="w-4 h-4" /> <span>Start Discussion</span>
                 </Button>
             </div>
 
@@ -119,35 +119,37 @@ const CommunityForums: React.FC = () => {
                         filteredThreads.map(thread => (
                             <Card key={thread.id} className="hover:shadow-md transition-shadow">
                                 <CardContent className="p-6">
-                                    <div className="flex justify-between items-start">
-                                        <div className="space-y-1">
-                                            <div className="flex items-center gap-2">
+                                    <div className="flex justify-between items-start gap-4">
+                                        <div className="flex-1 min-w-0 space-y-2">
+                                            <div className="flex items-center gap-2 flex-wrap">
                                                 <Badge variant="outline">{categories.find(c => c.id === thread.categoryId)?.name}</Badge>
-                                                <span className="text-xs text-slate-500">Posted by {thread.authorName}</span>
+                                                <span className="text-xs leading-tight" style={{ color: 'var(--text-muted)' }}>Posted by {thread.authorName}</span>
                                             </div>
-                                            <Link to={`/forums/thread/${thread.id}`} className="block text-xl font-semibold hover:text-[var(--primary)] transition-colors">
+                                            <Link to={`/forums/thread/${thread.id}`} className="block text-xl font-semibold leading-tight hover:text-[var(--primary)] transition-colors" style={{ color: 'var(--text-main)' }}>
                                                 {thread.title}
                                             </Link>
-                                            <p style={{ color: 'var(--text-secondary)' }} className="line-clamp-2 text-sm">{thread.content}</p>
+                                            <p style={{ color: 'var(--text-secondary)' }} className="line-clamp-2 text-sm leading-relaxed">{thread.content}</p>
                                         </div>
-                                        <div className="flex flex-col items-center min-w-[60px] text-slate-500">
-                                            <MessageSquareIcon className="w-5 h-5 mb-1" />
+                                        <div className="flex items-center gap-1.5 flex-shrink-0 self-center" style={{ color: 'var(--text-muted)' }}>
+                                            <MessageSquareIcon className="w-4 h-4" />
                                             <span className="text-sm font-medium">{thread.replyCount}</span>
                                         </div>
                                     </div>
-                                    <div className="mt-4 flex gap-2">
-                                        {thread.tags.map(tag => (
-                                            <span key={tag} className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--kpi-icon-chip)', color: 'var(--text-secondary)' }}>#{tag}</span>
-                                        ))}
-                                    </div>
+                                    {thread.tags.length > 0 && (
+                                        <div className="mt-4 flex gap-2 flex-wrap">
+                                            {thread.tags.map(tag => (
+                                                <span key={tag} className="text-xs px-2.5 py-1 rounded leading-tight" style={{ backgroundColor: 'var(--kpi-icon-chip)', color: 'var(--text-secondary)' }}>#{tag}</span>
+                                            ))}
+                                        </div>
+                                    )}
                                 </CardContent>
                             </Card>
                         ))
                     ) : (
-                        <div className="text-center py-12 border-2 border-dashed rounded-lg" style={{ borderColor: 'var(--border-strong)' }}>
-                            <MessageSquareIcon className="w-12 h-12 mx-auto text-slate-400 mb-3" />
-                            <p className="font-semibold text-lg">No Discussions Found</p>
-                            <p className="text-slate-500">Be the first to start a conversation in this category!</p>
+                        <div className="text-center py-16 border-2 border-dashed rounded-lg" style={{ borderColor: 'var(--border-default)' }}>
+                            <MessageSquareIcon className="w-16 h-16 mx-auto mb-4 opacity-30" style={{ color: 'var(--text-muted)' }} />
+                            <p className="font-semibold text-lg leading-tight" style={{ color: 'var(--text-main)' }}>No Discussions Found</p>
+                            <p className="text-sm mt-2 leading-tight" style={{ color: 'var(--text-secondary)' }}>Be the first to start a conversation in this category!</p>
                         </div>
                     )}
                 </div>

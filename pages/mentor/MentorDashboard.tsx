@@ -115,10 +115,17 @@ const MentorDashboard: React.FC = () => {
         <div className="space-y-6">
             <Card className="overflow-hidden relative" hover={false}>
                 <div className="absolute top-0 left-0 w-64 h-64 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2 pointer-events-none" style={{ background: 'var(--gradient-hero)', opacity: 0.15 }}></div>
+                <div className="absolute top-0 right-0 w-40 h-40 opacity-10 pointer-events-none">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 20 L180 60 L180 140 L100 180 L20 140 L20 60 Z" fill="var(--primary)" opacity="0.3"/>
+                        <circle cx="100" cy="100" r="30" fill="var(--primary)" opacity="0.5"/>
+                        <path d="M85 100 L95 110 L115 90" stroke="var(--card-bg)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                </div>
                 <CardHeader className="relative z-10">
                     <CardTitle className="text-2xl flex items-center gap-2">
                         <Sparkles className="w-[26px] h-[26px]" style={{ color: 'var(--primary)' }} />
-                        <span>Inspire Your Students!</span>
+                        <span>Inspire Your Students! 🎯</span>
                     </CardTitle>
                     <CardDescription>Manage your courses, create quizzes, and track student progress.</CardDescription>
                 </CardHeader>
@@ -168,23 +175,29 @@ const MentorDashboard: React.FC = () => {
                         {recentActivity.length > 0 ? (
                             <ul className="space-y-4">
                                 {recentActivity.map((activity) => (
-                                    <li key={activity.id} className="flex gap-3">
-                                        <div className="mt-1">
-                                            <div className="p-2 rounded-full" style={{ backgroundColor: 'var(--kpi-icon-chip)' }}>
+                                    <li key={activity.id} className="flex items-start gap-3">
+                                        <div className="flex-shrink-0">
+                                            <div className="p-2 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--kpi-icon-chip)' }}>
                                                 {getActivityIcon(activity.type)}
                                             </div>
                                         </div>
-                                        <div className="pb-2 border-b w-full last:border-0" style={{ borderColor: 'var(--border-default)' }}>
-                                            <p className="text-sm font-medium" style={{ color: 'var(--text-main)' }}>{activity.title}</p>
-                                            <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)' }}>{formatTimeAgo(activity.timestamp)}</p>
+                                        <div className="pb-3 border-b w-full last:border-0 last:pb-0" style={{ borderColor: 'var(--border-default)' }}>
+                                            <p className="text-sm font-medium leading-tight" style={{ color: 'var(--text-main)' }}>{activity.title}</p>
+                                            <p className="text-xs mt-1 leading-tight" style={{ color: 'var(--text-secondary)' }}>{formatTimeAgo(activity.timestamp)}</p>
                                         </div>
                                     </li>
                                 ))}
                             </ul>
                         ) : (
                             <div className="text-center py-8" style={{ color: 'var(--text-secondary)' }}>
-                                <Info className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                                <p>No recent activity.</p>
+                                <svg className="w-20 h-20 mx-auto mb-3 opacity-20" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="100" cy="100" r="60" stroke="var(--primary)" strokeWidth="4" strokeDasharray="8 8" opacity="0.4"/>
+                                    <circle cx="100" cy="100" r="8" fill="var(--primary)" opacity="0.6"/>
+                                    <circle cx="140" cy="100" r="6" fill="var(--primary)" opacity="0.4"/>
+                                    <circle cx="60" cy="100" r="6" fill="var(--primary)" opacity="0.4"/>
+                                </svg>
+                                <p className="font-medium">No recent activity</p>
+                                <p className="text-xs mt-1">Activity will appear here as students engage with your content.</p>
                             </div>
                         )}
                     </CardContent>
@@ -195,11 +208,11 @@ const MentorDashboard: React.FC = () => {
 };
 
 const StatCard: React.FC<{ icon: React.ReactNode; title: string; value: string | number }> = ({ icon, title, value }) => (
-    <Card className="flex items-center p-5 gap-5 hover:shadow-md transition-shadow card-themed">
-        <div className="p-3 rounded-xl kpi-icon-chip">{icon}</div>
-        <div>
-            <dd className="text-2xl font-bold" style={{ color: 'var(--text-main)' }}>{value}</dd>
-            <dt className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{title}</dt>
+    <Card className="flex items-center p-5 gap-4 hover:shadow-md transition-shadow card-themed">
+        <div className="p-3 rounded-xl kpi-icon-chip flex items-center justify-center flex-shrink-0">{icon}</div>
+        <div className="flex flex-col justify-center">
+            <dd className="text-2xl font-bold leading-tight" style={{ color: 'var(--text-main)' }}>{value}</dd>
+            <dt className="text-sm font-medium leading-tight mt-1" style={{ color: 'var(--text-secondary)' }}>{title}</dt>
         </div>
     </Card>
 );
@@ -208,7 +221,7 @@ const QuickActionButton: React.FC<{ to: string; icon: React.ReactNode; label: st
     const Content = (
         <div 
             className={cn(
-                "flex flex-col items-center justify-center gap-2 p-4 rounded-xl border transition-all cursor-pointer h-full",
+                "flex flex-col items-center justify-center gap-3 p-4 rounded-xl border transition-all cursor-pointer h-full min-h-[100px]",
                 disabled && "opacity-50 cursor-not-allowed"
             )}
             style={{
@@ -218,8 +231,8 @@ const QuickActionButton: React.FC<{ to: string; icon: React.ReactNode; label: st
             onMouseEnter={(e) => !disabled && (e.currentTarget.style.borderColor = 'var(--primary)')}
             onMouseLeave={(e) => !disabled && (e.currentTarget.style.borderColor = 'var(--border-default)')}
         >
-            <div className="p-2 rounded-full" style={{ backgroundColor: 'var(--kpi-icon-chip)' }}>{icon}</div>
-            <span className="text-sm font-medium" style={{ color: 'var(--text-main)' }}>{label}</span>
+            <div className="p-2.5 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--kpi-icon-chip)' }}>{icon}</div>
+            <span className="text-sm font-medium text-center leading-tight" style={{ color: 'var(--text-main)' }}>{label}</span>
         </div>
     );
 

@@ -70,10 +70,20 @@ const AdminDashboard: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            <Card hover={false}>
-                <CardHeader>
-                    <CardTitle className="text-2xl">Welcome to the Admin Panel!</CardTitle>
-                    <CardDescription>Manage users, courses, and system settings.</CardDescription>
+            <Card className="overflow-hidden relative" hover={false}>
+                <div className="absolute top-0 right-0 w-48 h-48 opacity-10 pointer-events-none">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="50" y="50" width="100" height="100" rx="12" fill="var(--primary)" opacity="0.3"/>
+                        <path d="M100 70 L100 130 M70 100 L130 100" stroke="var(--primary)" strokeWidth="8" strokeLinecap="round" opacity="0.5"/>
+                        <circle cx="100" cy="100" r="45" stroke="var(--primary)" strokeWidth="3" opacity="0.4"/>
+                    </svg>
+                </div>
+                <CardHeader className="relative z-10">
+                    <CardTitle className="text-2xl flex items-center gap-2">
+                        <Shield className="w-6 h-6" style={{ color: 'var(--primary)' }} />
+                        Welcome to the Admin Panel! 🛡️
+                    </CardTitle>
+                    <CardDescription>Manage users, courses, and system settings with full control.</CardDescription>
                 </CardHeader>
             </Card>
 
@@ -89,32 +99,41 @@ const AdminDashboard: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card>
                     <CardHeader><CardTitle>Quick Actions</CardTitle></CardHeader>
-                    <CardContent className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <Button asChild className="flex items-center gap-2"><Link to="/admin/users/create"><UserPlus className="w-[14px] h-[14px]" />Add User</Link></Button>
-                        <Button asChild className="flex items-center gap-2"><Link to="/admin/analytics"><PlusCircle className="w-[14px] h-[14px]" />Create Course</Link></Button>
-                        <Button asChild className="flex items-center gap-2"><Link to="/admin/reports"><FileBarChart className="w-[14px] h-[14px]" />View Reports</Link></Button>
-                        <Button asChild className="flex items-center gap-2"><Link to="/admin/settings"><Settings className="w-[14px] h-[14px]" />Settings</Link></Button>
-                        <Button asChild className="flex items-center gap-2"><Link to="/admin/moderation"><ShieldCheck className="w-[14px] h-[14px]" />Moderation</Link></Button>
-                        <Button asChild className="flex items-center gap-2"><Link to="/admin/security"><ShieldX className="w-[14px] h-[14px]" />Security</Link></Button>
+                    <CardContent className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <Button asChild className="flex items-center justify-center gap-2 h-10"><Link to="/admin/users/create"><UserPlus className="w-4 h-4 flex-shrink-0" /><span className="leading-tight">Add User</span></Link></Button>
+                        <Button asChild className="flex items-center justify-center gap-2 h-10"><Link to="/admin/analytics"><PlusCircle className="w-4 h-4 flex-shrink-0" /><span className="leading-tight">Create Course</span></Link></Button>
+                        <Button asChild className="flex items-center justify-center gap-2 h-10"><Link to="/admin/reports"><FileBarChart className="w-4 h-4 flex-shrink-0" /><span className="leading-tight">View Reports</span></Link></Button>
+                        <Button asChild className="flex items-center justify-center gap-2 h-10"><Link to="/admin/settings"><Settings className="w-4 h-4 flex-shrink-0" /><span className="leading-tight">Settings</span></Link></Button>
+                        <Button asChild className="flex items-center justify-center gap-2 h-10"><Link to="/admin/moderation"><ShieldCheck className="w-4 h-4 flex-shrink-0" /><span className="leading-tight">Moderation</span></Link></Button>
+                        <Button asChild className="flex items-center justify-center gap-2 h-10"><Link to="/admin/security"><ShieldX className="w-4 h-4 flex-shrink-0" /><span className="leading-tight">Security</span></Link></Button>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardHeader><CardTitle>Recent System Activity</CardTitle></CardHeader>
                     <CardContent>
                         {recentActivity.length > 0 ? (
-                            <ul className="space-y-4">
+                            <ul className="space-y-3">
                                 {recentActivity.slice(0, 5).map((activity) => (
-                                    <li key={activity.id} className="flex items-start gap-4 p-3 rounded-lg" style={{ backgroundColor: 'var(--kpi-icon-chip)' }}>
-                                        <div className="p-2 rounded-full" style={{ backgroundColor: 'var(--card-bg)' }}>{getActivityIcon(activity.type)}</div>
-                                        <div>
-                                            <p className="font-medium" style={{ color: 'var(--text-main)' }}>{activity.title}</p>
-                                            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{formatTimeAgo(activity.timestamp)}</p>
+                                    <li key={activity.id} className="flex items-start gap-3 p-3 rounded-lg" style={{ backgroundColor: 'var(--kpi-icon-chip)' }}>
+                                        <div className="p-2 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'var(--card-bg)' }}>{getActivityIcon(activity.type)}</div>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="font-medium leading-tight" style={{ color: 'var(--text-main)' }}>{activity.title}</p>
+                                            <p className="text-sm leading-tight mt-1" style={{ color: 'var(--text-secondary)' }}>{formatTimeAgo(activity.timestamp)}</p>
                                         </div>
                                     </li>
                                 ))}
                             </ul>
                         ) : (
-                            <p className="text-center py-4" style={{ color: 'var(--text-secondary)' }}>No system activity yet.</p>
+                            <div className="text-center py-8">
+                                <svg className="w-20 h-20 mx-auto mb-3 opacity-20" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="60" y="40" width="80" height="120" rx="8" fill="var(--primary)" opacity="0.3"/>
+                                    <rect x="75" y="60" width="50" height="6" rx="3" fill="var(--primary)" opacity="0.5"/>
+                                    <rect x="75" y="80" width="50" height="6" rx="3" fill="var(--primary)" opacity="0.5"/>
+                                    <rect x="75" y="100" width="30" height="6" rx="3" fill="var(--primary)" opacity="0.5"/>
+                                </svg>
+                                <p className="font-medium" style={{ color: 'var(--text-main)' }}>No system activity yet</p>
+                                <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>System events will be logged here.</p>
+                            </div>
                         )}
                     </CardContent>
                 </Card>
@@ -126,10 +145,10 @@ const AdminDashboard: React.FC = () => {
 
 
 const StatCard: React.FC<{ icon: React.ReactNode; title: string; value: string | number }> = ({ icon, title, value }) => (
-    <Card className="flex flex-col items-center text-center p-4">
-        <div className="p-3 rounded-xl" style={{ backgroundColor: 'var(--kpi-icon-chip)', border: '1px solid var(--kpi-icon-chip-border, var(--border-default))' }}>{icon}</div>
-        <dd className="text-3xl font-bold mt-2" style={{ color: 'var(--text-heading, var(--text-main))' }}>{value}</dd>
-        <dt className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{title}</dt>
+    <Card className="flex flex-col items-center justify-center text-center p-5">
+        <div className="p-3 rounded-xl flex items-center justify-center" style={{ backgroundColor: 'var(--kpi-icon-chip)', border: '1px solid var(--kpi-icon-chip-border, var(--border-default))' }}>{icon}</div>
+        <dd className="text-3xl font-bold mt-3 leading-tight" style={{ color: 'var(--text-heading, var(--text-main))' }}>{value}</dd>
+        <dt className="text-sm font-medium mt-1 leading-tight" style={{ color: 'var(--text-secondary)' }}>{title}</dt>
     </Card>
 );
 

@@ -185,10 +185,18 @@ const StudentDashboard: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            <div>
-                <h1 className="text-3xl font-bold tracking-tight" style={{ color: 'var(--text-main)' }}>Student Dashboard</h1>
-                <p style={{ color: 'var(--text-secondary)' }}>Welcome back, {user?.name}. Here's your progress overview.</p>
-            </div>
+            <Card className="overflow-hidden relative" hover={false}>
+                <div className="absolute top-0 right-0 w-48 h-48 opacity-10 pointer-events-none">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="80" fill="var(--primary)" opacity="0.2"/>
+                        <path d="M100 40 L120 80 L160 90 L130 120 L140 160 L100 140 L60 160 L70 120 L40 90 L80 80 Z" fill="var(--primary)" opacity="0.3"/>
+                    </svg>
+                </div>
+                <CardHeader className="relative z-10">
+                    <CardTitle className="text-2xl">Welcome back, {user?.name}! 🎓</CardTitle>
+                    <CardDescription>Here's your progress overview and learning journey.</CardDescription>
+                </CardHeader>
+            </Card>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <StatCard
@@ -248,21 +256,28 @@ const StudentDashboard: React.FC = () => {
                             {recentActivity.length > 0 ? (
                                 <ul className="space-y-4">
                                     {recentActivity.map((activity) => (
-                                        <li key={activity.id} className="flex gap-3">
-                                            <div className="mt-1">
-                                                <div className="p-2 rounded-full" style={{ backgroundColor: 'var(--kpi-icon-chip)' }}>
+                                        <li key={activity.id} className="flex items-start gap-3">
+                                            <div className="flex-shrink-0">
+                                                <div className="p-2 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--kpi-icon-chip)' }}>
                                                     {getActivityIcon(activity.type)}
                                                 </div>
                                             </div>
-                                            <div>
-                                                <p className="text-sm font-medium" style={{ color: 'var(--text-main)' }}>{activity.title}</p>
-                                                <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>{formatTimeAgo(activity.timestamp)}</p>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="text-sm font-medium leading-tight" style={{ color: 'var(--text-main)' }}>{activity.title}</p>
+                                                <p className="text-xs leading-tight mt-1" style={{ color: 'var(--text-secondary)' }}>{formatTimeAgo(activity.timestamp)}</p>
                                             </div>
                                         </li>
                                     ))}
                                 </ul>
                             ) : (
-                                <p className="text-sm text-center py-4" style={{ color: 'var(--text-secondary)' }}>No recent activity.</p>
+                                <div className="text-center py-8">
+                                    <svg className="w-20 h-20 mx-auto mb-3 opacity-20" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="100" cy="100" r="60" stroke="var(--primary)" strokeWidth="4" strokeDasharray="8 8" opacity="0.4"/>
+                                        <path d="M100 70 L100 110 M100 130 L100 135" stroke="var(--primary)" strokeWidth="6" strokeLinecap="round" opacity="0.5"/>
+                                    </svg>
+                                    <p className="text-sm font-medium" style={{ color: 'var(--text-main)' }}>No recent activity</p>
+                                    <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>Your activity will appear here.</p>
+                                </div>
                             )}
                         </CardContent>
                     </Card>
@@ -276,16 +291,16 @@ const StudentDashboard: React.FC = () => {
                         assignedQuizzes.map(quiz => (
                             <Card key={quiz.id} className="flex flex-col">
                                 <CardHeader>
-                                    <div className="flex justify-between items-start">
-                                        <CardTitle className="text-lg">{quiz.title}</CardTitle>
-                                        <span className="text-xs font-semibold px-2 py-1 rounded" style={{ backgroundColor: 'var(--kpi-icon-chip)', color: 'var(--text-secondary)' }}>{quiz.difficulty}</span>
+                                    <div className="flex justify-between items-start gap-3">
+                                        <CardTitle className="text-lg leading-tight">{quiz.title}</CardTitle>
+                                        <span className="text-xs font-semibold px-2.5 py-1 rounded flex-shrink-0" style={{ backgroundColor: 'var(--kpi-icon-chip)', color: 'var(--text-secondary)' }}>{quiz.difficulty}</span>
                                     </div>
-                                    <CardDescription>{quiz.courseTitle}</CardDescription>
+                                    <CardDescription className="mt-1.5">{quiz.courseTitle}</CardDescription>
                                 </CardHeader>
                                 <CardContent className="flex-grow">
                                     <div className="flex items-center gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
-                                        <ClipboardList className="w-4 h-4" />
-                                        <span>{quiz.questions.length} Questions</span>
+                                        <ClipboardList className="w-4 h-4 flex-shrink-0" />
+                                        <span className="leading-tight">{quiz.questions.length} Questions</span>
                                     </div>
                                 </CardContent>
                                 <CardFooter>
@@ -300,7 +315,15 @@ const StudentDashboard: React.FC = () => {
                         ))
                     ) : (
                         <div className="col-span-full py-12 text-center border-2 border-dashed rounded-lg empty-state">
-                            <p style={{ color: 'var(--text-secondary)' }}>No quizzes assigned yet.</p>
+                            <svg className="w-32 h-32 mx-auto mb-4 opacity-20" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="40" y="60" width="120" height="100" rx="8" fill="var(--primary)" opacity="0.3"/>
+                                <rect x="60" y="80" width="80" height="8" rx="4" fill="var(--primary)" opacity="0.5"/>
+                                <rect x="60" y="100" width="60" height="8" rx="4" fill="var(--primary)" opacity="0.5"/>
+                                <circle cx="100" cy="40" r="20" fill="var(--primary)" opacity="0.4"/>
+                                <path d="M90 35 L95 45 L105 35" stroke="var(--card-bg)" strokeWidth="3" strokeLinecap="round"/>
+                            </svg>
+                            <p className="text-lg font-medium" style={{ color: 'var(--text-main)' }}>No quizzes assigned yet</p>
+                            <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>Check back soon for new assignments from your instructors.</p>
                         </div>
                     )}
                 </div>
@@ -310,13 +333,13 @@ const StudentDashboard: React.FC = () => {
 };
 
 const StatCard: React.FC<{ icon: React.ReactNode; title: string; value: string | number }> = ({ icon, title, value }) => (
-    <Card className="flex items-center p-6 gap-4 card-themed">
-        <div className="p-3 rounded-lg kpi-icon-chip">
+    <Card className="flex items-center p-5 gap-4 card-themed">
+        <div className="p-3 rounded-xl kpi-icon-chip flex items-center justify-center">
             {icon}
         </div>
-        <div>
-            <p className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{title}</p>
-            <p className="text-2xl font-bold" style={{ color: 'var(--text-main)' }}>{value}</p>
+        <div className="flex flex-col justify-center">
+            <p className="text-sm font-medium leading-tight" style={{ color: 'var(--text-secondary)' }}>{title}</p>
+            <p className="text-2xl font-bold leading-tight mt-1" style={{ color: 'var(--text-main)' }}>{value}</p>
         </div>
     </Card>
 );
