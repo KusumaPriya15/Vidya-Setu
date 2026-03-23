@@ -81,10 +81,10 @@ const ChatBot: React.FC = () => {
             </button>
 
             {isOpen && (
-                <div className="fixed bottom-24 right-6 w-[90vw] max-w-md h-[70vh] max-h-[600px] bg-slate-900/80 backdrop-blur-sm border border-slate-700 rounded-2xl shadow-2xl flex flex-col animate-in fade-in-0 slide-in-from-bottom-5 duration-300 z-40 pointer-events-auto">
+                <div className="fixed bottom-24 right-6 w-[90vw] max-w-md h-[70vh] max-h-[600px] bg-white border border-slate-200 rounded-2xl shadow-2xl flex flex-col animate-in fade-in-0 slide-in-from-bottom-5 duration-300 z-40 pointer-events-auto">
                     {/* Header */}
-                    <div className="p-4 border-b border-slate-700">
-                        <h3 className="font-bold text-lg text-white text-center">AI Assistant</h3>
+                    <div className="p-4 border-b border-slate-100">
+                        <h3 className="font-bold text-lg text-slate-900 text-center">AI Assistant</h3>
                         <div className="flex justify-center items-center gap-1 mt-2">
                             <ModeButton mode="fast" currentMode={chatMode} setMode={setChatMode} icon={<ZapIcon className="w-4 h-4" />}>Fast</ModeButton>
                             <ModeButton mode="balanced" currentMode={chatMode} setMode={setChatMode} icon={<SparklesIcon className="w-4 h-4" />}>Balanced</ModeButton>
@@ -97,12 +97,12 @@ const ChatBot: React.FC = () => {
                     <div className="flex-1 p-4 space-y-4 overflow-y-auto">
                         {messages.map((msg, index) => (
                             <div key={index} className={cn("flex items-end gap-2", msg.role === 'user' ? "justify-end" : "justify-start")}>
-                                {msg.role === 'model' && <BotIcon className="w-6 h-6 p-1 bg-slate-700 text-violet-300 rounded-full shrink-0" />}
-                                <div className={cn("max-w-[80%] rounded-2xl px-4 py-2", msg.role === 'user' ? "bg-violet-600 text-white rounded-br-none" : "bg-slate-800 text-slate-200 rounded-bl-none")}>
+                                {msg.role === 'model' && <BotIcon className="w-6 h-6 p-1 bg-indigo-100 text-indigo-600 rounded-full shrink-0" />}
+                                <div className={cn("max-w-[80%] rounded-2xl px-4 py-2", msg.role === 'user' ? "bg-violet-600 text-white rounded-br-none" : "bg-slate-100 text-slate-800 rounded-bl-none")}>
                                     <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
                                     {msg.sources && msg.sources.length > 0 && (
-                                        <div className="mt-3 pt-2 border-t border-slate-700 space-y-1">
-                                            <p className="text-xs font-semibold text-slate-400">Sources:</p>
+                                        <div className="mt-3 pt-2 border-t border-slate-200 space-y-1">
+                                            <p className="text-xs font-semibold text-slate-500">Sources:</p>
                                             {msg.sources.map((source, i) => (
                                                 <a key={i} href={source.uri} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs text-blue-400 hover:underline truncate">
                                                     <LinkIcon className="w-3 h-3 shrink-0" />
@@ -116,9 +116,9 @@ const ChatBot: React.FC = () => {
                         ))}
                         {isLoading && (
                             <div className="flex items-end gap-2 justify-start">
-                                <BotIcon className="w-6 h-6 p-1 bg-slate-700 text-violet-300 rounded-full shrink-0" />
-                                <div className="bg-slate-800 rounded-2xl rounded-bl-none px-4 py-3">
-                                    <LoaderIcon className="w-5 h-5 text-slate-400 animate-spin" />
+                                <BotIcon className="w-6 h-6 p-1 bg-indigo-100 text-indigo-600 rounded-full shrink-0" />
+                                <div className="bg-slate-100 rounded-2xl rounded-bl-none px-4 py-3">
+                                    <LoaderIcon className="w-5 h-5 text-slate-500 animate-spin" />
                                 </div>
                             </div>
                         )}
@@ -126,7 +126,7 @@ const ChatBot: React.FC = () => {
                     </div>
                     
                     {/* Input */}
-                    <form onSubmit={handleSendMessage} className="p-4 border-t border-slate-700 flex items-center gap-2">
+                    <form onSubmit={handleSendMessage} className="p-4 border-t border-slate-100 flex items-center gap-2">
                         <Textarea
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
@@ -137,7 +137,7 @@ const ChatBot: React.FC = () => {
                                 }
                             }}
                             placeholder="Ask anything..."
-                            className="flex-1 resize-none bg-slate-800 border-slate-600 text-white min-h-0 h-10"
+                            className="flex-1 resize-none bg-white border-slate-200 text-slate-900 min-h-0 h-10"
                             rows={1}
                         />
                         <Button type="submit" size="icon" disabled={isLoading || !inputValue.trim()}>
@@ -163,7 +163,7 @@ const ModeButton: React.FC<{
             "flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full transition-colors",
             currentMode === mode
                 ? "bg-violet-600 text-white"
-                : "bg-slate-700 text-slate-300 hover:bg-slate-600"
+                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
         )}
     >
         {icon}

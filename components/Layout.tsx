@@ -16,8 +16,6 @@ import ChatBot from './ChatBot';
 import {
     Menu,
     X,
-    Sun,
-    Moon,
     ChevronDown,
     LayoutDashboard,
     BookOpen,
@@ -151,7 +149,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             {/* Mobile Sidebar Overlay */}
             {isMobileMenuOpen && (
                 <div
-                    className="fixed inset-0 bg-black/50 z-50 md:hidden backdrop-blur-sm"
+                    className="fixed inset-0 bg-black/40 z-50 md:hidden"
                     onClick={() => setIsMobileMenuOpen(false)}
                 >
                     <div
@@ -232,15 +230,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem onClick={() => navigate('/profile')} className="dropdown-item-themed">Profile</DropdownMenuItem>
                                     <DropdownMenuItem onClick={() => navigate('/settings')} className="dropdown-item-themed">Settings</DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="dropdown-item-themed">
-                                        {theme === 'dark' ? (
-                                            <div className="flex items-center"><Sun className="mr-2 h-4 w-4" /> Light Mode</div>
-                                        ) : (
-                                            <div className="flex items-center"><Moon className="mr-2 h-4 w-4" /> Dark Mode</div>
-                                        )}
-                                    </DropdownMenuItem>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuItem onClick={handleLogout} className="text-red-600 dark:text-red-400">
+                                    <DropdownMenuItem onClick={handleLogout} className="text-red-600">
                                         Log out
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>

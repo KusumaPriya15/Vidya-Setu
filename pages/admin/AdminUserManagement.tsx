@@ -130,7 +130,7 @@ const AdminUserManagement: React.FC = () => {
     }
 
     const TableHeader: React.FC<{ sortKey: SortKey; children: React.ReactNode }> = ({ sortKey, children }) => (
-        <th scope="col" className="px-6 py-4 cursor-pointer hover:text-white transition-colors uppercase tracking-wider text-xs font-semibold text-slate-400 text-left" onClick={() => requestSort(sortKey)}>
+        <th scope="col" className="px-6 py-4 cursor-pointer hover:text-[var(--primary)] transition-colors uppercase tracking-wider text-xs font-semibold text-left" style={{ color: 'var(--text-secondary)' }} onClick={() => requestSort(sortKey)}>
             <div className="flex items-center">
                 {children}
                 {getSortIndicator(sortKey)}
@@ -165,18 +165,21 @@ const AdminUserManagement: React.FC = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <Input
-                    placeholder="Search by name or email..."
-                    value={searchTerm}
-                    onChange={e => setSearchTerm(e.target.value)}
-                    className="max-w-xs bg-slate-900 border-slate-700 text-white placeholder:text-slate-500"
-                />
+                <div className="w-full md:w-auto">
+                    <Input
+                        placeholder="Search by name or email..."
+                        value={searchTerm}
+                        onChange={e => setSearchTerm(e.target.value)}
+                        className="w-full md:w-64"
+                        icon={<SearchIcon className="w-4 h-4" />}
+                    />
+                </div>
                 <div className="flex items-center gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
                     <span>Rows per page:</span>
                     <Select
                         value={itemsPerPage.toString()}
                         onChange={e => setItemsPerPage(parseInt(e.target.value))}
-                        className="w-20 h-9 bg-slate-900 border-slate-700 text-white"
+                        className="w-20 h-9"
                     >
                         <option value="10">10</option>
                         <option value="25">25</option>
@@ -186,30 +189,30 @@ const AdminUserManagement: React.FC = () => {
                 </div>
             </div>
 
-            <Card className="bg-slate-900 border-slate-800">
+            <Card className="card-themed">
                 <CardContent className="p-0">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
-                            <thead className="bg-slate-900 border-b border-slate-800">
+                            <thead className="border-b" style={{ borderColor: 'var(--border-default)', backgroundColor: 'var(--kpi-icon-chip)' }}>
                                 <tr>
                                     <TableHeader sortKey="name">Name</TableHeader>
                                     <TableHeader sortKey="email">Email</TableHeader>
                                     <TableHeader sortKey="role">Role</TableHeader>
                                     <TableHeader sortKey="accountStatus">Status</TableHeader>
                                     <TableHeader sortKey="createdAt">Joined On</TableHeader>
-                                    <th scope="col" className="px-6 py-4 text-right text-xs font-semibold text-slate-400 uppercase tracking-wider">Actions</th>
+                                    <th scope="col" className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-800/50 bg-slate-950">
+                            <tbody className="divide-y" style={{ borderColor: 'var(--border-default)' }}>
                                 {isLoading ? (
                                     <tr>
-                                        <td colSpan={6} className="text-center p-8 text-slate-400">Loading users...</td>
+                                        <td colSpan={6} className="text-center p-8" style={{ color: 'var(--text-secondary)' }}>Loading users...</td>
                                     </tr>
                                 ) : paginatedUsers.length > 0 ? (
                                     paginatedUsers.map(user => (
-                                        <tr key={user.id} className="hover:bg-slate-900 transition-colors">
-                                            <td className="px-6 py-4 font-medium text-slate-200">{user.name}</td>
-                                            <td className="px-6 py-4 text-slate-400">{user.email}</td>
+                                        <tr key={user.id} className="transition-colors hover:bg-[var(--kpi-icon-chip)]">
+                                            <td className="px-6 py-4 font-medium" style={{ color: 'var(--text-main)' }}>{user.name}</td>
+                                            <td className="px-6 py-4" style={{ color: 'var(--text-secondary)' }}>{user.email}</td>
                                             <td className="px-6 py-4">
                                                 <Badge variant={getRoleBadgeVariant(user.role)} className="capitalize">
                                                     {user.role === 'mentor' ? 'Instructor' : user.role}
@@ -220,13 +223,13 @@ const AdminUserManagement: React.FC = () => {
                                                     {user.accountStatus}
                                                 </Badge>
                                             </td>
-                                            <td className="px-6 py-4 text-slate-400">{new Date(user.createdAt).toLocaleDateString()}</td>
+                                            <td className="px-6 py-4" style={{ color: 'var(--text-secondary)' }}>{new Date(user.createdAt).toLocaleDateString()}</td>
                                             <td className="px-6 py-4 text-right">
                                                 <div className="flex gap-3 justify-end items-center">
                                                     <button
                                                         aria-label={`${user.accountStatus === 'ENABLED' ? 'Disable' : 'Enable'} ${user.name}`}
                                                         title={`${user.accountStatus === 'ENABLED' ? 'Disable' : 'Enable'} account`}
-                                                        className={cn("transition-colors", user.accountStatus === 'ENABLED' ? "text-yellow-500 hover:text-yellow-400" : "text-green-500 hover:text-green-400")}
+                                                        className={cn("transition-colors", user.accountStatus === 'ENABLED' ? "text-yellow-500 hover:text-yellow-600" : "text-green-500 hover:text-green-600")}
                                                         onClick={() => handleStatusClick(user)}
                                                         disabled={user.id === currentUser?.id}
                                                     >
@@ -235,7 +238,7 @@ const AdminUserManagement: React.FC = () => {
 
                                                     <button
                                                         aria-label={`Edit ${user.name}`}
-                                                        className="text-slate-400 hover:text-white transition-colors"
+                                                        className="transition-colors hover:text-[var(--primary)] text-slate-500"
                                                         onClick={() => handleEditClick(user)}
                                                     >
                                                         <PencilIcon className="w-5 h-5" />
@@ -244,7 +247,7 @@ const AdminUserManagement: React.FC = () => {
                                                     <button
                                                         aria-label={`Reset password for ${user.name}`}
                                                         title="Reset Password"
-                                                        className="text-slate-400 hover:text-white transition-colors"
+                                                        className="transition-colors hover:text-[var(--primary)] text-slate-500"
                                                         onClick={() => handleResetPasswordClick(user)}
                                                     >
                                                         <LockIcon className="w-5 h-5" />
@@ -291,7 +294,7 @@ const AdminUserManagement: React.FC = () => {
                             size="sm"
                             onClick={() => setCurrentPage(1)}
                             disabled={currentPage === 1}
-                            className="hidden sm:flex border-slate-700 bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white"
+                            className="hidden sm:flex hover:bg-[var(--kpi-icon-chip)]"
                         >
                             First
                         </Button>
@@ -300,7 +303,7 @@ const AdminUserManagement: React.FC = () => {
                             size="sm"
                             onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                             disabled={currentPage === 1}
-                            className="border-slate-700 bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white"
+                            className="hover:bg-[var(--kpi-icon-chip)]"
                         >
                             <ChevronLeftIcon className="w-4 h-4" />
                         </Button>
@@ -311,7 +314,7 @@ const AdminUserManagement: React.FC = () => {
                                     key={pageNum}
                                     variant={currentPage === pageNum ? "default" : "ghost"}
                                     size="sm"
-                                    className={cn("w-8 h-8 p-0", currentPage === pageNum ? "bg-violet-600 text-white" : "text-slate-400 hover:text-white hover:bg-slate-800")}
+                                    className={cn("w-8 h-8 p-0 text-[var(--text-secondary)]", currentPage === pageNum ? "bg-violet-600 text-white" : "hover:text-[var(--primary)] hover:bg-[var(--kpi-icon-chip)]")}
                                     onClick={() => setCurrentPage(pageNum)}
                                 >
                                     {pageNum}
@@ -324,7 +327,7 @@ const AdminUserManagement: React.FC = () => {
                             size="sm"
                             onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                             disabled={currentPage === totalPages}
-                            className="border-slate-700 bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white"
+                            className="hover:bg-[var(--kpi-icon-chip)]"
                         >
                             <ChevronRightIcon className="w-4 h-4" />
                         </Button>
@@ -333,7 +336,7 @@ const AdminUserManagement: React.FC = () => {
                             size="sm"
                             onClick={() => setCurrentPage(totalPages)}
                             disabled={currentPage === totalPages}
-                            className="hidden sm:flex border-slate-700 bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white"
+                            className="hidden sm:flex hover:bg-[var(--kpi-icon-chip)]"
                         >
                             Last
                         </Button>
@@ -693,6 +696,7 @@ const EyeIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 const EyeOffIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" /><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" /><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" /><line x1="2" x2="22" y1="2" y2="22" /></svg>
 );
+const SearchIcon = (props: React.SVGProps<SVGSVGElement>) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>;
 const ChevronLeftIcon = (props: React.SVGProps<SVGSVGElement>) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>;
 const ChevronRightIcon = (props: React.SVGProps<SVGSVGElement>) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>;
 

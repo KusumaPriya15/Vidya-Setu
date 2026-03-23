@@ -171,10 +171,10 @@ const MentorAddCourse: React.FC = () => {
     }
 
     return (
-        <div className="max-w-4xl mx-auto p-8 bg-slate-900/50 backdrop-blur-sm border-2 border-indigo-400/20 rounded-xl shadow-xl shadow-indigo-500/10">
+        <div className="max-w-4xl mx-auto p-8 bg-white border border-slate-200 rounded-xl shadow-xl">
             <div className="flex items-center gap-3 mb-8">
-                <FileTextIcon className="w-8 h-8 text-slate-300" />
-                <h1 className="text-3xl font-bold text-slate-200">New Course</h1>
+                <FileTextIcon className="w-8 h-8 text-indigo-600" />
+                <h1 className="text-3xl font-bold text-slate-900">New Course</h1>
             </div>
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
@@ -236,17 +236,17 @@ const MentorAddCourse: React.FC = () => {
                         </FormField>
                     </div>
 
-                    <div className="md:col-span-2 space-y-4 pt-4 border-t border-slate-700">
-                        <h2 className="text-xl font-bold text-slate-200">Course Materials ({materials.length})</h2>
+                    <div className="md:col-span-2 space-y-4 pt-4 border-t border-slate-200">
+                        <h2 className="text-xl font-bold text-slate-900">Course Materials ({materials.length})</h2>
                         {materials.length > 0 && (
-                            <div className="space-y-2 rounded-md border border-slate-700 p-2 max-h-60 overflow-y-auto">
+                            <div className="space-y-2 rounded-md border border-slate-200 p-2 max-h-60 overflow-y-auto">
                                 {materials.map(mat => (
-                                    <div key={mat.tempId} className="flex items-center justify-between p-2 bg-slate-800 rounded">
+                                    <div key={mat.tempId} className="flex items-center justify-between p-2 bg-slate-50 rounded border border-slate-100">
                                         <div className="flex items-center gap-3 overflow-hidden">
                                             {getMaterialIcon(mat.type)}
                                             <div className="overflow-hidden">
-                                                <p className="font-semibold text-slate-200 truncate">{mat.title}</p>
-                                                <p className="text-xs text-slate-400 truncate">{mat.resource}</p>
+                                                <p className="font-semibold text-slate-900 truncate">{mat.title}</p>
+                                                <p className="text-xs text-slate-500 truncate">{mat.resource}</p>
                                             </div>
                                         </div>
                                         <Button type="button" variant="ghost" size="sm" className="text-red-500" onClick={() => handleRemoveMaterial(mat.tempId)}>Remove</Button>
@@ -254,8 +254,8 @@ const MentorAddCourse: React.FC = () => {
                                 ))}
                             </div>
                         )}
-                        <div className="p-4 border border-dashed border-slate-600 rounded-lg space-y-4">
-                            <h3 className="font-semibold text-slate-200">Add a New Material</h3>
+                        <div className="p-4 border border-dashed border-slate-300 rounded-lg space-y-4">
+                            <h3 className="font-semibold text-slate-900">Add a New Material</h3>
                             <FormField label="Material Title">
                                 <Input value={newMaterialTitle} onChange={e => setNewMaterialTitle(e.target.value)} />
                             </FormField>
@@ -288,7 +288,7 @@ const MentorAddCourse: React.FC = () => {
 
 const FormField: React.FC<{ label: string; required?: boolean; children: React.ReactNode }> = ({ label, required, children }) => (
     <div className="space-y-1">
-        <label className="text-sm font-semibold text-slate-300">
+        <label className="text-sm font-semibold text-slate-700">
             {label} {required && <span className="text-red-500">*</span>}
         </label>
         {children}

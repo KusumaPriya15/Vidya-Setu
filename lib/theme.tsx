@@ -1,12 +1,9 @@
+import React, { createContext, useContext } from 'react';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
-
-type Theme = 'dark' | 'light' | 'system';
+type Theme = 'light';
 
 interface ThemeProviderProps {
   children: React.ReactNode;
-  defaultTheme?: Theme;
-  storageKey?: string;
 }
 
 interface ThemeProviderState {
@@ -14,49 +11,20 @@ interface ThemeProviderState {
   setTheme: (theme: Theme) => void;
 }
 
-const initialState: ThemeProviderState = {
-  theme: 'system',
+const ThemeProviderContext = createContext<ThemeProviderState>({
+  theme: 'light',
   setTheme: () => null,
-};
+});
 
-const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
-
-// Fix: Changed ThemeProvider to a React.FC. The original function declaration caused issues with TypeScript inferring the `children` prop correctly in `index.tsx`. This change aligns it with other provider components in the project and resolves the error.
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({
-  children,
-  defaultTheme = 'system',
-  storageKey = 'vidyasetu-ui-theme',
-  ...props
-}) => {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
-  );
-
-  useEffect(() => {
-    const root = window.document.documentElement;
-    root.classList.remove('light', 'dark');
-
-    if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
-      root.classList.add(systemTheme);
-      return;
-    }
-
-    root.classList.add(theme);
-  }, [theme]);
-
-  const value = {
-    theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
-    },
-  };
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+  // Always enforce light mode in the DOM just to be safe
+  React.useEffect(() => {
+    document.documentElement.classList.remove('dark');
+    document.documentElement.classList.add('light');
+  }, []);
 
   return (
-    <ThemeProviderContext.Provider {...props} value={value}>
+    <ThemeProviderContext.Provider value={{ theme: 'light', setTheme: () => {} }}>
       {children}
     </ThemeProviderContext.Provider>
   );
@@ -64,10 +32,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
 
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext);
-
   if (context === undefined) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
-
   return context;
 };

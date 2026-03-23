@@ -57,8 +57,8 @@ const MentorMentorship: React.FC = () => {
     return (
         <div className="space-y-8">
             <div>
-                <h1 className="text-3xl font-bold tracking-tight dark:text-white">Mentorship Requests</h1>
-                <p className="text-slate-500 dark:text-slate-400">Manage incoming requests from students seeking guidance.</p>
+                <h1 className="text-3xl font-bold tracking-tight">Mentorship Requests</h1>
+                <p className="text-slate-500">Manage incoming requests from students seeking guidance.</p>
             </div>
 
             <div className="space-y-4">
@@ -72,7 +72,7 @@ const MentorMentorship: React.FC = () => {
                                     <CardDescription>Sent on {new Date(req.createdAt).toLocaleDateString()}</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-sm italic text-slate-600 dark:text-slate-300">"{req.message}"</p>
+                                    <p className="text-sm italic text-slate-600">"{req.message}"</p>
                                 </CardContent>
                                 <CardFooter className="flex justify-end gap-2">
                                     <Button variant="outline" onClick={() => handleStatusUpdate(req, 'rejected')} className="text-red-600 hover:bg-red-50">
@@ -95,7 +95,7 @@ const MentorMentorship: React.FC = () => {
                 {activeRequests.length > 0 ? (
                     <div className="grid gap-4 md:grid-cols-3">
                         {activeRequests.map(req => (
-                            <Card key={req.id} className="bg-slate-50 dark:bg-slate-900/50">
+                            <Card key={req.id} className="bg-slate-50">
                                 <CardHeader>
                                     <div className="flex justify-between items-center">
                                         <CardTitle className="text-lg">{req.studentName}</CardTitle>

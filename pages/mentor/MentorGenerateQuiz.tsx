@@ -29,7 +29,7 @@ import {
 const ErrorAlert = ({ message }: { message: string | null }) => {
     if (!message) return null;
     return (
-        <div className="p-3 mb-4 flex items-center gap-3 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-900/20 dark:text-red-300 border border-red-300 dark:border-red-800" role="alert">
+        <div className="p-3 mb-4 flex items-center gap-3 text-sm text-red-800 rounded-lg bg-red-50 border border-red-300" role="alert">
             <AlertTriangleIcon className="w-5 h-5 shrink-0" />
             <div>
                 <span className="font-medium">Request Failed:</span> {message}
@@ -486,9 +486,9 @@ const MentorGenerateQuiz: React.FC = () => {
 
     if (courses.length === 0) {
         return (
-            <div className="text-center p-8 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
+            <div className="text-center p-8 bg-slate-50 rounded-lg">
                 <h2 className="text-xl font-semibold mb-4">No Courses Found</h2>
-                <p className="text-slate-500 dark:text-slate-400 mb-6">You need to create a course before you can generate a quiz for it.</p>
+                <p className="text-slate-500 mb-6">You need to create a course before you can generate a quiz for it.</p>
                 <Link to="/mentor/add-course" className={cn(buttonVariants({ variant: 'default' }))}>
                     Create Your First Course
                 </Link>
@@ -500,29 +500,29 @@ const MentorGenerateQuiz: React.FC = () => {
         return (
             <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in duration-500">
                 <div className="text-center space-y-2">
-                    <h1 className="text-4xl font-extrabold tracking-tight dark:text-white">Create New Quiz</h1>
-                    <p className="text-slate-500 dark:text-slate-400">Choose your preferred method to build an assessment.</p>
+                    <h1 className="text-4xl font-extrabold tracking-tight">Create New Quiz</h1>
+                    <p className="text-slate-500">Choose your preferred method to build an assessment.</p>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-8">
                     {/* AI Mode Card */}
                     <Card
-                        className="group relative overflow-hidden border-2 border-transparent hover:border-indigo-500 transition-all cursor-pointer bg-white dark:bg-slate-950 shadow-xl"
+                        className="group relative overflow-hidden border-2 border-transparent hover:border-indigo-500 transition-all cursor-pointer bg-white shadow-xl"
                         onClick={() => setCreationMode('ai')}
                     >
                         <div className="absolute top-0 right-0 p-3">
                             <Badge className="bg-indigo-600 text-white border-0">Recommended</Badge>
                         </div>
                         <CardHeader className="text-center pt-10">
-                            <div className="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/40 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                                <SparklesIcon className="w-10 h-10 text-indigo-600 dark:text-indigo-400" />
+                            <div className="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                                <SparklesIcon className="w-10 h-10 text-indigo-600" />
                             </div>
                             <CardTitle className="text-2xl">Magic AI Generator</CardTitle>
                             <CardDescription className="text-base mt-2">
                                 Derived questions directly from your learning materials (PDF, TXT, etc.) using Gemini AI.
                             </CardDescription>
                         </CardHeader>
-                        <CardContent className="space-y-3 pb-8 text-sm text-slate-600 dark:text-slate-400 text-center">
+                        <CardContent className="space-y-3 pb-8 text-sm text-slate-600 text-center">
                             <p>✓ Strictly follows course materials</p>
                             <p>✓ Instant pedagogical analysis</p>
                             <p>✓ Multiple choice or mixed formats</p>
@@ -532,19 +532,19 @@ const MentorGenerateQuiz: React.FC = () => {
 
                     {/* Manual Mode Card */}
                     <Card
-                        className="group relative overflow-hidden border-2 border-transparent hover:border-violet-500 transition-all cursor-pointer bg-white dark:bg-slate-950 shadow-xl"
+                        className="group relative overflow-hidden border-2 border-transparent hover:border-violet-500 transition-all cursor-pointer bg-white shadow-xl"
                         onClick={() => navigate('/mentor/manual-quiz')}
                     >
                         <CardHeader className="text-center pt-10">
-                            <div className="w-20 h-20 bg-violet-100 dark:bg-violet-900/40 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                                <PencilIcon className="w-10 h-10 text-violet-600 dark:text-violet-400" />
+                            <div className="w-20 h-20 bg-violet-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                                <PencilIcon className="w-10 h-10 text-violet-600" />
                             </div>
                             <CardTitle className="text-2xl">Pro Manual Builder</CardTitle>
                             <CardDescription className="text-base mt-2">
                                 Full creative control. Write your own questions with optional AI pedagogical assistance.
                             </CardDescription>
                         </CardHeader>
-                        <CardContent className="space-y-3 pb-8 text-sm text-slate-600 dark:text-slate-400 text-center">
+                        <CardContent className="space-y-3 pb-8 text-sm text-slate-600 text-center">
                             <p>✓ Complete control over every word</p>
                             <p>✓ Assisted Bloom's Taxonomy tagging</p>
                             <p>✓ Unlimited layouts & formats</p>
@@ -569,7 +569,7 @@ const MentorGenerateQuiz: React.FC = () => {
                 )}
             </div>
 
-            <Card className="border-indigo-100 dark:border-indigo-900/30 overflow-hidden">
+            <Card className="border-indigo-100 overflow-hidden">
                 <div className="h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-2xl">
@@ -584,13 +584,13 @@ const MentorGenerateQuiz: React.FC = () => {
                     <CardContent className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label htmlFor="course" className="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Target Course</label>
+                                <label htmlFor="course" className="block text-sm font-semibold mb-2 text-slate-700">Target Course</label>
                                 <Select id="course" value={selectedCourse?.id || ''} onChange={e => setSelectedCourse(courses.find(c => c.id === e.target.value) || null)}>
                                     {courses.map(c => <option key={c.id} value={c.id}>{c.title}</option>)}
                                 </Select>
                             </div>
                             <div>
-                                <label className="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Topic Refinement <span className="text-indigo-500">*</span></label>
+                                <label className="block text-sm font-semibold mb-2 text-slate-700">Topic Refinement <span className="text-indigo-500">*</span></label>
                                 <div className="flex gap-2">
                                     <Input
                                         value={topic}
@@ -607,9 +607,9 @@ const MentorGenerateQuiz: React.FC = () => {
 
                         {/* File Upload Zone */}
                         <div>
-                            <label className="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Knowledge Source Materials</label>
+                            <label className="block text-sm font-semibold mb-2 text-slate-700">Knowledge Source Materials</label>
                             <div
-                                className="border-2 border-dashed border-slate-300 dark:border-slate-800 rounded-xl p-8 bg-slate-50/50 dark:bg-slate-900/50 hover:bg-slate-100 dark:hover:bg-slate-900/80 transition-all text-center cursor-pointer group"
+                                className="border-2 border-dashed border-slate-300 rounded-xl p-8 bg-slate-50/50 hover:bg-slate-100 transition-all text-center cursor-pointer group"
                                 onClick={() => fileInputRef.current?.click()}
                             >
                                 <input
@@ -620,16 +620,16 @@ const MentorGenerateQuiz: React.FC = () => {
                                     onChange={handleFileChange}
                                     accept=".txt,.pdf,.doc,.docx,.csv,.xlsx,.md,.json"
                                 />
-                                <div className="w-14 h-14 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                                    <FileUpIcon className="w-7 h-7 text-indigo-600 dark:text-indigo-400" />
+                                <div className="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                                    <FileUpIcon className="w-7 h-7 text-indigo-600" />
                                 </div>
-                                <p className="font-bold text-slate-900 dark:text-white">Upload learning materials</p>
+                                <p className="font-bold text-slate-900">Upload learning materials</p>
                                 <p className="text-sm text-slate-500 mt-1">Drag & drop your academic files here (PDF, Word, TXT, Excel, etc.)</p>
                             </div>
 
                             {fileTypeError && (
-                                <div className="mt-3 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                                    <p className="text-sm text-red-600 dark:text-red-400 font-medium">{fileTypeError}</p>
+                                <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+                                    <p className="text-sm text-red-600 font-medium">{fileTypeError}</p>
                                 </div>
                             )}
 
@@ -638,9 +638,9 @@ const MentorGenerateQuiz: React.FC = () => {
                                     {uploadedFiles.map((f, i) => {
                                     const isError = f.status === 'error';
                                     return (
-                                        <div key={i} className="flex items-center justify-between p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                                        <div key={i} className="flex items-center justify-between p-3 bg-white rounded-lg border border-slate-200">
                                             <div className="flex items-center gap-3">
-                                                <div className={isError ? "p-2 bg-red-100 dark:bg-red-900/30 rounded text-red-500" : "p-2 bg-slate-100 dark:bg-slate-700 rounded text-indigo-500"}>
+                                                <div className={isError ? "p-2 bg-red-100 rounded text-red-500" : "p-2 bg-slate-100 rounded text-indigo-500"}>
                                                     {f.status === 'processing' ? <LoaderIcon className="w-4 h-4 animate-spin" /> : isError ? <AlertTriangleIcon className="w-4 h-4" /> : <FileIcon className="w-4 h-4" />}
                                                 </div>
                                                 <div>
@@ -665,7 +665,7 @@ const MentorGenerateQuiz: React.FC = () => {
                                 <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Quick Suggestions:</p>
                                 <div className="flex flex-wrap gap-2">
                                     {suggestedTopics.map((sTopic, i) => (
-                                        <Badge key={i} variant="secondary" className="cursor-pointer hover:bg-indigo-100 dark:hover:bg-indigo-900/50 py-1.5 px-3" onClick={() => setTopic(sTopic)}>
+                                        <Badge key={i} variant="secondary" className="cursor-pointer hover:bg-indigo-100 py-1.5 px-3" onClick={() => setTopic(sTopic)}>
                                             {sTopic}
                                         </Badge>
                                     ))}
@@ -673,7 +673,7 @@ const MentorGenerateQuiz: React.FC = () => {
                             </div>
                         )}
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-slate-200 dark:border-slate-800">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-slate-200">
                             <div>
                                 <label htmlFor="difficulty" className="block text-sm font-semibold mb-2">Target Difficulty</label>
                                 <Select id="difficulty" value={difficulty} onChange={e => setDifficulty(e.target.value as any)}>
@@ -716,15 +716,15 @@ const MentorGenerateQuiz: React.FC = () => {
 
             {generatedQuestions.length > 0 && (
                 <div className="space-y-6 animate-in slide-in-from-bottom-5 duration-500">
-                    <Card className="border-indigo-200 dark:border-indigo-900/50 shadow-xl">
-                        <CardHeader className="bg-slate-50/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
+                    <Card className="border-indigo-200 shadow-xl">
+                        <CardHeader className="bg-slate-50/50 border-b border-slate-200">
                             <div className="flex justify-between items-center">
                                 <div>
                                     <CardTitle className="text-xl">Preview & Edit Draft</CardTitle>
                                     <CardDescription>Review items before publishing. All content is derived from your source files.</CardDescription>
                                 </div>
                                 <div className="flex flex-col items-end gap-1">
-                                    <Badge variant="outline" className="text-indigo-600 border-indigo-200 dark:text-indigo-400 dark:border-indigo-800">Source: File Based</Badge>
+                                    <Badge variant="outline" className="text-indigo-600 border-indigo-200">Source: File Based</Badge>
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
@@ -746,10 +746,10 @@ const MentorGenerateQuiz: React.FC = () => {
                         </CardHeader>
                         <CardContent className="space-y-6 pt-6">
                             {generatedQuestions.map((q, index) => (
-                                <div key={q.id} className="p-5 border border-slate-200 dark:border-slate-800 rounded-xl space-y-4 bg-white dark:bg-slate-950 transition-shadow hover:shadow-sm">
+                                <div key={q.id} className="p-5 border border-slate-200 rounded-xl space-y-4 bg-white transition-shadow hover:shadow-sm">
                                     <div className="flex justify-between items-start gap-4">
                                         <div className="flex items-center gap-3">
-                                            <span className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-sm text-indigo-600">
+                                            <span className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-sm text-indigo-600">
                                                 {index + 1}
                                             </span>
                                             {q.bloomsTaxonomy && (
@@ -765,7 +765,7 @@ const MentorGenerateQuiz: React.FC = () => {
                                                 size="sm"
                                                 onClick={() => handleRegenerateIndividualQuestion(index)}
                                                 disabled={regenerationLoading[q.id]}
-                                                className="text-xs h-8 text-amber-600 dark:text-amber-400"
+                                                className="text-xs h-8 text-amber-600"
                                             >
                                                 {regenerationLoading[q.id] ? <LoaderIcon className="w-3 h-3 mr-2 animate-spin" /> : <RotateCwIcon className="w-3 h-3 mr-2" />}
                                                 Regenerate
@@ -776,7 +776,7 @@ const MentorGenerateQuiz: React.FC = () => {
                                                 size="sm"
                                                 onClick={() => handleGetFeedback(q)}
                                                 disabled={feedbackLoading[q.id]}
-                                                className="text-xs h-8 text-indigo-600 dark:text-indigo-400"
+                                                className="text-xs h-8 text-indigo-600"
                                             >
                                                 {feedbackLoading[q.id] ? <LoaderIcon className="w-3 h-3 mr-2 animate-spin" /> : <BotIcon className="w-3 h-3 mr-2" />}
                                                 Clarify

@@ -286,13 +286,7 @@ const LoginPage: React.FC = () => {
                 background: 'linear-gradient(180deg, rgba(20,18,60,0.78) 0%, rgba(20,18,60,0.55) 40%, rgba(20,18,60,0.82) 100%)',
               }}
             />
-            {/* Extra dark-mode dim overlay */}
-            <div
-              className="absolute inset-0 hidden dark:block"
-              style={{
-                background: 'rgba(8, 10, 20, 0.38)',
-              }}
-            />
+
 
             {/* Content over image */}
             <div className="relative z-10 flex flex-col justify-between p-10 text-white w-full">
@@ -307,19 +301,19 @@ const LoginPage: React.FC = () => {
 
               <div className="space-y-4 mt-10">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center backdrop-blur-sm">
+                  <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
                     <CheckIcon className="w-4 h-4 text-white" />
                   </div>
                   <span className="text-sm text-white">AI-powered quiz generation</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center backdrop-blur-sm">
+                  <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
                     <CheckIcon className="w-4 h-4 text-white" />
                   </div>
                   <span className="text-sm text-white">Live 1-on-1 tutoring sessions</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center backdrop-blur-sm">
+                  <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
                     <CheckIcon className="w-4 h-4 text-white" />
                   </div>
                   <span className="text-sm text-white">Real-time progress tracking</span>

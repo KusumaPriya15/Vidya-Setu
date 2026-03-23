@@ -80,13 +80,12 @@ const StudentMentorship: React.FC = () => {
                     <h1 className="text-3xl font-bold tracking-tight" style={{ color: 'var(--text-main)' }}>Find a Mentor</h1>
                     <p style={{ color: 'var(--text-secondary)' }}>Connect with experts for career advice and academic guidance.</p>
                 </div>
-                <div className="relative w-full md:w-64">
-                    <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'var(--text-muted)' }} />
+                <div className="w-full md:w-64">
                     <Input
                         placeholder="Search by name or skill..."
-                        className="pl-9"
                         value={searchTerm}
                         onChange={e => setSearchTerm(e.target.value)}
+                        icon={<SearchIcon className="w-4 h-4" />}
                     />
                 </div>
             </div>

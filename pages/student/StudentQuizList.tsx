@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import * as api from '../../lib/api';
 import { Quiz, QuizAttempt, Course } from '../../types';
 import { useAuth } from '../../lib/auth';
+import { SearchIcon } from '../../components/ui/Icons';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '../../components/ui/Card';
 import { buttonVariants } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
@@ -125,6 +126,7 @@ const StudentQuizList: React.FC = () => {
                         value={searchTerm}
                         onChange={e => setSearchTerm(e.target.value)}
                         className="w-full sm:w-64"
+                        icon={<SearchIcon className="w-4 h-4" />}
                     />
                     <Select value={difficultyFilter} onChange={e => setDifficultyFilter(e.target.value)} className="w-full sm:w-40">
                         <option value="All">All Levels</option>

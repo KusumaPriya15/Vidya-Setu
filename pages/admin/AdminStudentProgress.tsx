@@ -272,12 +272,15 @@ const AdminStudentProgress: React.FC = () => {
                     <h1 className="text-3xl font-bold tracking-tight">Student Progress</h1>
                     <p style={{ color: 'var(--text-secondary)' }}>Global view of all student performance across the platform.</p>
                 </div>
-                <Input
-                    placeholder="Search by student name..."
-                    value={searchTerm}
-                    onChange={e => setSearchTerm(e.target.value)}
-                    className="max-w-xs"
-                />
+                <div className="w-full md:w-auto">
+                    <Input
+                        placeholder="Search by student name..."
+                        value={searchTerm}
+                        onChange={e => setSearchTerm(e.target.value)}
+                        className="w-full md:w-64"
+                        icon={<SearchIcon className="w-4 h-4" />}
+                    />
+                </div>
             </div>
 
             {filteredStudentData.length > 0 ? (
@@ -310,6 +313,7 @@ const ChevronDownIcon = (props: React.SVGProps<SVGSVGElement>) => <svg {...props
 const UsersIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
 );
+const SearchIcon = (props: React.SVGProps<SVGSVGElement>) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>;
 
 
 export default AdminStudentProgress;

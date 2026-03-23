@@ -73,16 +73,16 @@ const Settings: React.FC = () => {
         checked: boolean;
         onChange: () => void;
     }> = ({ label, description, checked, onChange }) => (
-        <div className="flex items-start justify-between py-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-start justify-between py-4 border-b border-gray-200">
             <div className="flex-1">
-                <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">{label}</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{description}</p>
+                <h3 className="text-sm font-medium text-gray-900">{label}</h3>
+                <p className="text-sm text-gray-500 mt-1">{description}</p>
             </div>
             <button
                 type="button"
                 onClick={onChange}
                 className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-                    checked ? 'bg-blue-600' : 'bg-gray-200 dark:bg-gray-700'
+                    checked ? 'bg-blue-600' : 'bg-gray-200'
                 }`}
                 role="switch"
                 aria-checked={checked}
@@ -102,7 +102,7 @@ const Settings: React.FC = () => {
                 <h1 className="text-3xl font-bold tracking-tight">Account Settings</h1>
                 <Card>
                     <CardContent>
-                        <p className="text-gray-500 dark:text-gray-400">Loading preferences...</p>
+                        <p className="text-gray-500">Loading preferences...</p>
                     </CardContent>
                 </Card>
             </div>

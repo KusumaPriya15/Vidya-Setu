@@ -9,7 +9,7 @@ const Landing: React.FC = () => {
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans overflow-x-hidden selection:bg-indigo-100 selection:text-indigo-900">
       
       {/* Header */}
-      <header className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 transition-all duration-300">
+      <header className="fixed top-0 w-full z-50 bg-white border-b border-slate-200 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3 cursor-pointer group" onClick={() => navigate('/')}>
             <div className="p-2 bg-indigo-600 rounded-xl group-hover:bg-indigo-700 transition-colors duration-300 shadow-sm">
@@ -99,7 +99,7 @@ const Landing: React.FC = () => {
                 />
                 
                 {/* Floating Card UI */}
-                <div className="absolute bottom-6 left-6 right-6 sm:right-auto sm:w-72 bg-white/95 backdrop-blur-sm p-4 rounded-2xl shadow-xl border border-slate-100 animate-fade-in-up">
+                <div className="absolute bottom-6 left-6 right-6 sm:right-auto sm:w-72 bg-white p-4 rounded-2xl shadow-xl border border-slate-100 animate-fade-in-up">
                   <div className="flex items-center gap-4 mb-3">
                     <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center">
                       <CheckCircle className="w-6 h-6 text-emerald-600" />

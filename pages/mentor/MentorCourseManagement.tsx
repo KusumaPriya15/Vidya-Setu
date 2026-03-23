@@ -79,7 +79,7 @@ const MentorCourseManagement: React.FC = () => {
                             <CardFooter className="grid grid-cols-3 gap-2">
                                 <Link to={`/mentor/course/${course.id}`} className={cn(buttonVariants({ variant: 'default', size: 'sm' }))}>Manage</Link>
                                 <Button variant="outline" size="sm" onClick={() => handleEditClick(course)}>Edit</Button>
-                                <Button variant="outline" size="sm" className="text-red-600 border-red-600/50 hover:bg-red-50 hover:text-red-700 dark:text-red-500 dark:hover:bg-red-900/20 dark:hover:text-red-400 dark:border-red-500/50" onClick={() => handleDeleteClick(course)}>Delete</Button>
+                                <Button variant="outline" size="sm" className="text-red-600 border-red-600/50 hover:bg-red-50 hover:text-red-700" onClick={() => handleDeleteClick(course)}>Delete</Button>
                             </CardFooter>
                         </Card>
                     ))}
@@ -310,7 +310,7 @@ const DeleteCourseDialog: React.FC<DeleteCourseDialogProps> = ({ isOpen, onClose
                 </p>
                 <div>
                     <label htmlFor="delete-confirm" className="block text-sm font-medium mb-1">
-                        To confirm this action, type <strong className="font-semibold text-red-600 dark:text-red-500">{course.title}</strong> below:
+                        To confirm this action, type <strong className="font-semibold text-red-600">{course.title}</strong> below:
                     </label>
                     <Input 
                         id="delete-confirm"

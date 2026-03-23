@@ -122,14 +122,14 @@ const StudentMyCourses: React.FC = () => {
                     <h1 className="text-3xl font-bold tracking-tight" style={{ color: 'var(--text-main)' }}>My Courses</h1>
                     <p style={{ color: 'var(--text-secondary)' }}>Your assigned courses and learning materials.</p>
                 </div>
-                <div className="relative w-full md:w-auto">
-                    <SearchIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: 'var(--text-muted)' }} />
+                <div className="w-full md:w-auto">
                     <Input
                         type="text"
                         placeholder="Search courses or instructors..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pl-10 w-full md:w-64"
+                        className="w-full md:w-64"
+                        icon={<SearchIcon className="w-5 h-5" style={{ color: 'var(--text-muted)' }}/>}
                         aria-label="Search my courses"
                     />
                 </div>
@@ -141,7 +141,7 @@ const StudentMyCourses: React.FC = () => {
                         {filteredCourses.map(course => (
                             <Card key={course.id} className="card-themed flex flex-col overflow-hidden">
                                 <CardContent className="p-6 flex-grow">
-                                    <div className="flex justify-between items-start gap-4">
+                                    <div className="flex justify-between items-center gap-4">
                                         <div className="flex-1">
                                             <h2 className="text-xl font-bold" style={{ color: 'var(--text-main)' }}>{course.title}</h2>
                                             <p className="text-sm mt-1 line-clamp-2" style={{ color: 'var(--text-secondary)' }}>{course.description}</p>

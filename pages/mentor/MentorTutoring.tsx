@@ -400,8 +400,8 @@ const MentorTutoring: React.FC = () => {
                 <div className="space-y-4">
                     {sessionToCancel && (
                         <>
-                            <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-900/50 rounded-md text-sm space-y-1">
-                                <div className="flex items-center gap-2 text-red-800 dark:text-red-300 font-semibold mb-2">
+                            <div className="p-4 bg-red-50 border border-red-200 rounded-md text-sm space-y-1">
+                                <div className="flex items-center gap-2 text-red-800 font-semibold mb-2">
                                     <AlertTriangleIcon className="w-5 h-5" />
                                     Warning
                                 </div>

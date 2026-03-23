@@ -242,8 +242,8 @@ const AssignQuizDialog: React.FC<AssignQuizDialogProps> = ({ isOpen, onClose, qu
         <Dialog isOpen={isOpen} onClose={onClose} title={`Assign Quiz: ${quiz.title}`}>
              <div className="space-y-4">
                 {successMessage ? (
-                    <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-md">
-                        <p className="font-semibold text-green-700 dark:text-green-300">{successMessage}</p>
+                    <div className="text-center p-4 bg-green-50 rounded-md">
+                        <p className="font-semibold text-green-700">{successMessage}</p>
                     </div>
                 ) : (
                     <>

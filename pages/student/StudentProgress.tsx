@@ -378,15 +378,15 @@ const ProgressTrendChart: React.FC<{ data: { name: string, score: number, date: 
                 {Y_AXIS_LABELS.map(label => {
                     const y = (SVG_HEIGHT - PADDING) - (label / 100) * (SVG_HEIGHT - 2 * PADDING);
                     return (
-                        <g key={label} className="text-slate-300 dark:text-slate-700">
-                            <text x={PADDING - 10} y={y + 4} textAnchor="end" className="text-[10px] fill-slate-400 dark:fill-slate-500">{label}%</text>
+                        <g key={label} className="text-slate-300">
+                            <text x={PADDING - 10} y={y + 4} textAnchor="end" className="text-[10px] fill-slate-400">{label}%</text>
                             <line x1={PADDING} x2={SVG_WIDTH - PADDING} y1={y} y2={y} className="stroke-current" strokeDasharray="4,4" strokeWidth="1" />
                         </g>
                     );
                 })}
 
                 {/* X-Axis Line */}
-                <line x1={PADDING} x2={SVG_WIDTH - PADDING} y1={SVG_HEIGHT - PADDING} y2={SVG_HEIGHT - PADDING} className="stroke-slate-300 dark:stroke-slate-600" strokeWidth="1" />
+                <line x1={PADDING} x2={SVG_WIDTH - PADDING} y1={SVG_HEIGHT - PADDING} y2={SVG_HEIGHT - PADDING} className="stroke-slate-300" strokeWidth="1" />
 
                 {/* Date Labels (Only show start and end to avoid clutter if many points, or all if few) */}
                 {pointCoordinates.map(({ x, date }, index) => {
@@ -395,7 +395,7 @@ const ProgressTrendChart: React.FC<{ data: { name: string, score: number, date: 
                     if (!showLabel) return null;
 
                     return (
-                        <text key={index} x={x} y={SVG_HEIGHT - PADDING + 20} textAnchor="middle" className="text-[10px] fill-slate-500 dark:fill-slate-400">
+                        <text key={index} x={x} y={SVG_HEIGHT - PADDING + 20} textAnchor="middle" className="text-[10px] fill-slate-500">
                             {date}
                         </text>
                     );
@@ -439,7 +439,7 @@ const ProgressTrendChart: React.FC<{ data: { name: string, score: number, date: 
             {/* Tooltip */}
             {hoveredIndex !== null && pointCoordinates[hoveredIndex] && (
                 <div
-                    className="absolute z-10 p-3 bg-slate-900/95 text-white text-xs rounded-lg shadow-xl pointer-events-none backdrop-blur-sm border border-slate-700 transform -translate-x-1/2 -translate-y-full transition-all duration-200 ease-out"
+                    className="absolute z-10 p-3 bg-slate-900 text-white text-xs rounded-lg shadow-xl pointer-events-none border border-slate-700 transform -translate-x-1/2 -translate-y-full transition-all duration-200 ease-out"
                     style={{
                         left: `${(pointCoordinates[hoveredIndex].x / SVG_WIDTH) * 100}%`,
                         top: `${(pointCoordinates[hoveredIndex].y / SVG_HEIGHT) * 100}%`,

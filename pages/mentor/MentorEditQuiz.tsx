@@ -186,7 +186,7 @@ const MentorEditQuiz: React.FC = () => {
                 </CardHeader>
                 <CardContent className="space-y-4">
                     {quiz.questions.map((q, index) => (
-                        <Card key={q.id} className="bg-slate-50 dark:bg-slate-900/50">
+                        <Card key={q.id} className="bg-slate-50">
                             <CardHeader className="flex-row items-center justify-between">
                                 <CardTitle className="text-lg">Question {index + 1}</CardTitle>
                                 <Button variant="ghost" size="icon" onClick={() => handleDeleteQuestion(index)}><TrashIcon className="w-4 h-4 text-red-500" /></Button>

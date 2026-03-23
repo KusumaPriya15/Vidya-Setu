@@ -88,63 +88,6 @@
   --surface-nested: rgba(14, 165, 164, 0.04);
 }
 
-/* Student Dark Theme - "Deep Ocean Lab" */
-.dark [data-role="student"],
-.dark.theme-student,
-[data-role="student"].dark {
-  /* Gradient Backgrounds */
-  --gradient-page: linear-gradient(135deg, #042F2E 0%, #0F172A 30%, #1E1B4B 60%, #0D1117 100%);
-  --gradient-sidebar: linear-gradient(180deg, #062E2D 0%, #0A2A2E 40%, #111827 100%);
-  --gradient-header: linear-gradient(90deg, #062E2D 0%, #0F172A 100%);
-  --gradient-hero: linear-gradient(135deg, #14B8A6 0%, #0EA5E9 50%, #8B5CF6 100%);
-  --gradient-btn-primary: linear-gradient(135deg, #14B8A6 0%, #0D9488 50%, #0F766E 100%);
-  --gradient-progress: linear-gradient(90deg, #2DD4BF 0%, #22D3EE 50%, #A78BFA 100%);
-
-  /* Solid Surface Colors — OPAQUE for clear separation from gradient */
-  --page-bg: #042F2E;
-  --card-bg: #0A3D3C;
-  --card-bg-hover: #0D4A49;
-  --sidebar-bg: #052C2B;
-  --sidebar-active: rgba(20, 184, 166, 0.18);
-  --input-bg: #0A3D3C;
-
-  /* Primary Actions */
-  --primary: #14B8A6;
-  --primary-hover: #2DD4BF;
-  --primary-foreground: #042F2E;
-
-  /* Text - High Contrast Tokens */
-  --text-heading: #F0FDFA;
-  --text-main: #E0FFFE;
-  --text-secondary: #99F6E4;
-  --text-muted: #5EEAD4;
-  --text-on-gradient: #FFFFFF;
-
-  /* Accents */
-  --accent-primary: #14B8A6;
-  --accent-secondary: #A78BFA;
-  --accent-badge: #A78BFA;
-  --accent-progress: #2DD4BF;
-
-  /* Borders & Shadows — stronger for dark-mode elevation */
-  --border-default: rgba(20, 184, 166, 0.18);
-  --border-strong: rgba(20, 184, 166, 0.32);
-  --border-focus: #14B8A6;
-  --shadow-card: 0 2px 6px rgba(0, 0, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.2);
-  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.3), 0 12px 36px rgba(20, 184, 166, 0.12);
-
-  /* Component Specific */
-  --kpi-icon-chip: rgba(20, 184, 166, 0.12);
-  --kpi-icon-chip-border: rgba(20, 184, 166, 0.22);
-  --chart-line: #14B8A6;
-  --chart-fill: rgba(20, 184, 166, 0.15);
-  --chart-marker: #A78BFA;
-  --ai-card-glow: rgba(20, 184, 166, 0.25);
-
-  /* Surface layering */
-  --surface-overlay: rgba(20, 184, 166, 0.06);
-  --surface-nested: rgba(20, 184, 166, 0.08);
-}
 
 /* ============================================
    👨‍🏫 INSTRUCTOR/MENTOR DASHBOARD — "Control & Creation"
@@ -208,67 +151,6 @@
   --session-highlight: #4F46E5;
 }
 
-/* Instructor Dark Theme - "Command Bridge" */
-.dark [data-role="instructor"],
-.dark [data-role="mentor"],
-.dark.theme-instructor,
-.dark.theme-mentor,
-[data-role="instructor"].dark,
-[data-role="mentor"].dark {
-  /* Gradient Backgrounds */
-  --gradient-page: linear-gradient(135deg, #0B1026 0%, #0F172A 30%, #1E1B4B 60%, #0D1117 100%);
-  --gradient-sidebar: linear-gradient(180deg, #0E1330 0%, #141A3A 40%, #111827 100%);
-  --gradient-header: linear-gradient(90deg, #0E1330 0%, #141A3A 100%);
-  --gradient-hero: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #A855F7 100%);
-  --gradient-btn-primary: linear-gradient(135deg, #6366F1 0%, #7C3AED 50%, #8B5CF6 100%);
-  --gradient-progress: linear-gradient(90deg, #818CF8 0%, #A78BFA 50%, #C084FC 100%);
-
-  /* Solid Surface Colors — OPAQUE */
-  --page-bg: #0B1026;
-  --card-bg: #161D42;
-  --card-bg-hover: #1C2450;
-  --sidebar-bg: #0D1230;
-  --sidebar-active: rgba(99, 102, 241, 0.18);
-  --input-bg: #161D42;
-
-  /* Primary Actions */
-  --primary: #6366F1;
-  --primary-hover: #818CF8;
-  --primary-foreground: #EEF2FF;
-
-  /* Text - High Contrast Tokens */
-  --text-heading: #F5F3FF;
-  --text-main: #E8E5FF;
-  --text-secondary: #C7D2FE;
-  --text-muted: #A5B4FC;
-  --text-on-gradient: #FFFFFF;
-
-  /* Accents */
-  --accent-primary: #6366F1;
-  --accent-secondary: #A78BFA;
-  --accent-action: #A78BFA;
-  --accent-trend: #A78BFA;
-
-  /* Borders & Shadows — stronger for dark-mode elevation */
-  --border-default: rgba(99, 102, 241, 0.18);
-  --border-strong: rgba(99, 102, 241, 0.30);
-  --border-focus: #6366F1;
-  --border-highlight: #6366F1;
-  --shadow-card: 0 2px 6px rgba(0, 0, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.2);
-  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.3), 0 12px 36px rgba(99, 102, 241, 0.12);
-
-  /* Component Specific */
-  --kpi-icon-chip: rgba(99, 102, 241, 0.12);
-  --kpi-icon-chip-border: rgba(99, 102, 241, 0.22);
-  --chart-bar: #6366F1;
-  --chart-fill: rgba(99, 102, 241, 0.15);
-  --chart-trend: #A78BFA;
-  --session-highlight: #6366F1;
-
-  /* Surface layering */
-  --surface-overlay: rgba(99, 102, 241, 0.06);
-  --surface-nested: rgba(99, 102, 241, 0.08);
-}
 
 /* ============================================
    🛡 ADMIN DASHBOARD — "System & Governance"
@@ -330,64 +212,6 @@
   --warning-badge-border: rgba(217, 119, 6, 0.3);
 }
 
-/* Admin Dark Theme - "Secure Operations" */
-.dark [data-role="admin"],
-.dark.theme-admin,
-[data-role="admin"].dark {
-  /* Gradient Backgrounds */
-  --gradient-page: linear-gradient(135deg, #1C1008 0%, #1E1B4B 40%, #0F172A 70%, #0D1117 100%);
-  --gradient-sidebar: linear-gradient(180deg, #1A1208 0%, #1C1610 40%, #151320 100%);
-  --gradient-header: linear-gradient(90deg, #1A1208 0%, #1C1610 100%);
-  --gradient-hero: linear-gradient(135deg, #F59E0B 0%, #F97316 50%, #A855F7 100%);
-  --gradient-btn-primary: linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #B45309 100%);
-  --gradient-progress: linear-gradient(90deg, #FBBF24 0%, #FB923C 50%, #C084FC 100%);
-
-  /* Solid Surface Colors — OPAQUE */
-  --page-bg: #1C1008;
-  --card-bg: #2A1E0A;
-  --card-bg-hover: #342510;
-  --sidebar-bg: #1A1108;
-  --sidebar-active: rgba(245, 158, 11, 0.18);
-  --input-bg: #2A1E0A;
-
-  /* Primary Actions */
-  --primary: #F59E0B;
-  --primary-hover: #FBBF24;
-  --primary-foreground: #1C1008;
-
-  /* Text - High Contrast Tokens */
-  --text-heading: #FEF3C7;
-  --text-main: #FDF5E6;
-  --text-secondary: #FCD34D;
-  --text-muted: #FDE68A;
-  --text-on-gradient: #FFFFFF;
-
-  /* Accents */
-  --accent-primary: #F59E0B;
-  --accent-secondary: #C084FC;
-  --accent-neutral: #C084FC;
-  --accent-destructive: #EF4444;
-
-  /* Borders & Shadows — stronger for dark-mode elevation */
-  --border-default: rgba(245, 158, 11, 0.16);
-  --border-strong: rgba(245, 158, 11, 0.28);
-  --border-focus: #F59E0B;
-  --shadow-card: 0 2px 6px rgba(0, 0, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.2);
-  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.3), 0 12px 36px rgba(245, 158, 11, 0.1);
-
-  /* Component Specific */
-  --kpi-icon-chip: rgba(245, 158, 11, 0.12);
-  --kpi-icon-chip-border: rgba(245, 158, 11, 0.22);
-  --table-hover: rgba(245, 158, 11, 0.08);
-  --chart-header: #F59E0B;
-  --chart-fill: rgba(245, 158, 11, 0.15);
-  --warning-badge-bg: rgba(245, 158, 11, 0.15);
-  --warning-badge-border: rgba(245, 158, 11, 0.4);
-
-  /* Surface layering */
-  --surface-overlay: rgba(245, 158, 11, 0.05);
-  --surface-nested: rgba(245, 158, 11, 0.07);
-}
 
 /* ============================================
    Base Layer Styles
@@ -1143,11 +967,7 @@
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
 
-  /* Backdrop blur for glassmorphism effects */
-  .glass-effect {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
+
 
   /* Smooth scrolling */
   .scroll-smooth {
