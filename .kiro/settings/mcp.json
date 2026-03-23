@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "supabase": {
-      "url": "https://mcp.supabase.com/mcp?client_id=kiro&project_ref=uzaeicbdbscljwavnpew&read_only=false",
-      "disabled": false
-    }
-  }
-}

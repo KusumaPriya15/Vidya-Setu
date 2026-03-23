@@ -1,6 +1,0 @@
-✅ [Database Connection] Connected. User count: 1
-✅ [Fetch Sessions] Retrieved 3 sessions
-✅ [Forum Access] Accessible. Categories: 1
-✅ [Active Sessions Query] Query successful (Count: 2)
-✅ [Table Access (mentorship_requests)] Accessible. Row count: 0
-✅ [Query Pending Requests] Success. Count: 0
